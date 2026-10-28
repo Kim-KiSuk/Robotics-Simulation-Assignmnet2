@@ -2,8 +2,8 @@
   {
     "file": "toy2box_agibot_auto_n20.hdf5",
     "original_file": "toy2box_agibot_auto_n20.hdf5",
-    "dataset_id": "Dataset B",
-    "role": "automatic_collection_b",
+    "dataset_id": "training_reference",
+    "role": "automatic_training_reference",
     "bytes": 6529490,
     "sha256": "ccfde05c772f5e2445a410a19b42163f13553a10d6a49be3953ec9370f0c094e",
     "availability": "local_only_not_published"
@@ -20,8 +20,8 @@
   {
     "file": "toy2box_agibot_n20_annotated.hdf5",
     "original_file": "toy2box_agibot_n20_annotated.hdf5",
-    "dataset_id": "mimic_annotation_from_dataset_b",
-    "role": "mimic_annotation_from_dataset_b",
+    "dataset_id": "mimic_annotation_from_training_reference",
+    "role": "mimic_annotation_from_training_reference",
     "bytes": 7927958,
     "sha256": "7a9a79365f14882c68cf074f5bbb590b42b86c1868ba8594c472a4b95e88acb1",
     "availability": "local_only_not_published"
@@ -38,8 +38,8 @@
   {
     "file": "toy2box_agibot_mimic_n20_500.hdf5",
     "original_file": "toy2box_agibot_mimic_n20_500.hdf5",
-    "dataset_id": "mimic_generated_from_dataset_b",
-    "role": "mimic_generated_from_dataset_b",
+    "dataset_id": "mimic_generated_from_training_reference",
+    "role": "mimic_generated_from_training_reference",
     "bytes": 177493932,
     "sha256": "0fcd528cc24fe1e9786e3994659c97cdf9603a172499f531d1b53eb2a168dd76",
     "availability": "local_only_not_published"

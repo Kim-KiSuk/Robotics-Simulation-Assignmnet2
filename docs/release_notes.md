@@ -9,6 +9,6 @@
 
 수집 방식은 자동 피드백 제어다. Dataset C에는 속도 변화·작은 수정·분산 멈춤이 포함된다. [파일명 대응과 SHA256](https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2/blob/main/data/manifest.json)을 확인할 수 있다.
 
-저장소에는 환경·학습 코드, Dataset B/Mimic499로 학습한 선택 모델 가중치 1개, 평가 명령어, 발표 초안과 재생 영상을 제공한다. Dataset B·annotation·Mimic 원본 5개는 이 Release에 포함하지 않으며 통계와 연결 관계만 보관한다.
+저장소에는 환경·학습 코드, Mimic499로 학습한 선택 모델 가중치 1개, 평가 명령어, 발표 초안과 재생 영상을 제공한다. 학습 참조·annotation·Mimic 원본 5개는 이 Release에 포함하지 않으며 통계와 연결 관계만 보관한다.
 
 Dataset A·Dataset C의 대표 시범 재생 6개는 기존 성공 조건을 10 step 연속 충족했다. 이 결과는 학습 정책의 100회 평가 성공률이 아니다.

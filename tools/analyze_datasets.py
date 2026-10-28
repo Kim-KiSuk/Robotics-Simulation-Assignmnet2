@@ -13,11 +13,11 @@ import numpy as np
 FILES = {
     "toy2box_agibot_auto_100.hdf5": "automatic_collection_a",
     "toy2box_agibot_idle21_n20.hdf5": "automatic_collection_c",
-    "toy2box_agibot_auto_n20.hdf5": "automatic_collection_b",
+    "toy2box_agibot_auto_n20.hdf5": "automatic_training_reference",
     "toy2box_agibot_annotated_100.hdf5": "mimic_annotation_from_dataset_a",
-    "toy2box_agibot_n20_annotated.hdf5": "mimic_annotation_from_dataset_b",
+    "toy2box_agibot_n20_annotated.hdf5": "mimic_annotation_from_training_reference",
     "toy2box_agibot_mimic_n100_500.hdf5": "mimic_generated_from_dataset_a",
-    "toy2box_agibot_mimic_n20_500.hdf5": "mimic_generated_from_dataset_b",
+    "toy2box_agibot_mimic_n20_500.hdf5": "mimic_generated_from_training_reference",
 }
 RELEASE = "https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2/releases/download/collection-2026-10-28"
 PRIMARY_FILES = {"toy2box_agibot_auto_100.hdf5", "toy2box_agibot_idle21_n20.hdf5"}
@@ -41,7 +41,7 @@ def analyze(source, output, include_related=False):
     for filename, role in FILES.items():
         if filename not in PRIMARY_FILES and not include_related:
             continue
-        dataset_id, public_name = PUBLIC_NAMES.get(filename, ("Dataset B" if filename == "toy2box_agibot_auto_n20.hdf5" else role, filename))
+        dataset_id, public_name = PUBLIC_NAMES.get(filename, ("training_reference" if filename == "toy2box_agibot_auto_n20.hdf5" else role, filename))
         path = source / public_name
         if not path.exists():
             path = source / filename

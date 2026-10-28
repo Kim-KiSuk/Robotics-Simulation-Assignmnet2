@@ -1,6 +1,5 @@
 {
   "status": "partial_smoke_check_not_official_100_rollout_result",
-  "dataset_id": "Dataset B",
   "model": "models/final_model.pth",
   "model_sha256": "10669f7c24bd04e39a8ed6417721877c01527c7f1797f58481314b8e6e8268bc",
   "training_seed": 101,
@@ -39,5 +38,6 @@
       "success": true
     }
   ],
-  "note": "Stopped after confirming model loading and inference. Do not report this as a completed 100-rollout evaluation."
+  "note": "Stopped after confirming model loading and inference. Do not report this as a completed 100-rollout evaluation.",
+  "training_data": "toy2box_agibot_mimic_n20_500.hdf5"
 }

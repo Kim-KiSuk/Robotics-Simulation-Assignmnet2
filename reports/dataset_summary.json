@@ -73,8 +73,8 @@
   {
     "file": "toy2box_agibot_auto_n20.hdf5",
     "original_file": "toy2box_agibot_auto_n20.hdf5",
-    "dataset_id": "Dataset B",
-    "role": "automatic_collection_b",
+    "dataset_id": "training_reference",
+    "role": "automatic_training_reference",
     "task": "Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-v0",
     "fps": 20.0,
     "episodes": 20,
@@ -125,8 +125,8 @@
   {
     "file": "toy2box_agibot_n20_annotated.hdf5",
     "original_file": "toy2box_agibot_n20_annotated.hdf5",
-    "dataset_id": "mimic_annotation_from_dataset_b",
-    "role": "mimic_annotation_from_dataset_b",
+    "dataset_id": "mimic_annotation_from_training_reference",
+    "role": "mimic_annotation_from_training_reference",
     "task": "Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-Rel-Mimic-v0",
     "fps": 20.0,
     "episodes": 20,
@@ -163,8 +163,8 @@
   {
     "file": "toy2box_agibot_mimic_n20_500.hdf5",
     "original_file": "toy2box_agibot_mimic_n20_500.hdf5",
-    "dataset_id": "mimic_generated_from_dataset_b",
-    "role": "mimic_generated_from_dataset_b",
+    "dataset_id": "mimic_generated_from_training_reference",
+    "role": "mimic_generated_from_training_reference",
     "task": "Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-Rel-Mimic-v0",
     "fps": 20.0,
     "episodes": 499,

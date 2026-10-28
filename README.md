@@ -7,10 +7,10 @@
 
 | 제출 항목 | 위치 | 상태 |
 |---|---|---|
-| 최종 모델 1개 | [models/final_model.pth](models/final_model.pth) | Dataset B → Mimic 499개 → epoch 2000, 학습 seed 101 |
+| 최종 모델 1개 | [models/final_model.pth](models/final_model.pth) | BC-RNN/GMM · epoch 2000 · 학습 seed 101 |
 | 평가 명령어 | [submission/evaluate.txt](submission/evaluate.txt) | 검증 seed 42, rollout 100회, horizon 800 |
 | 5분 발표 PPT | [submission/toy2box_presentation_draft.pptx](submission/toy2box_presentation_draft.pptx) | 7장 초안, 정식 평가·통제 실험 보완 필요 |
-| 제출 기준과 확인 항목 | [submission/requirements.md](submission/requirements.md) | PDF 47~54페이지 대응 |
+| 제출 파일 확인 | [submission/checklist.md](submission/checklist.md) | 실행 파일·모델·명령어 확인 |
 
 
 ## 데이터 세트
@@ -18,26 +18,13 @@
 | 실험 이름 | 구성 | 시범 수 | 평균 길이 | idle 평균 | 용도 |
 |---|---|---:|---:|---:|---|
 | **Dataset A** | 기준 동작 구성 | 100 | 14.61초 | 0.70% | 수집·증강 참고 기준 |
-| **Dataset B** | 속도 변화·짧은 멈춤 구성 | 20 | 17.68초 | 4.78% | 최종 모델의 원본 계열 |
 | **Dataset C** | idle 목표 21%·분산 멈춤 구성 | 20 | 21.02초 | 19.79% | 동작 시간 구성 비교용 |
 
-A/B/C는 데이터 세트 식별자이며 시범 개수나 소요 시간을 뜻하지 않는다. 수집 방식과 실행 이력은 [수집 기록](docs/data_collection.md)에 정리했다. idle은 팔의 이동·회전 명령 6개가 모두 정확히 0인 프레임의 비율이며, 그리퍼 값은 제외한다. 수집 통계는 BC 정책 평가 성공률과 구분한다.
+A/C는 데이터 세트 식별자이며 시범 개수나 소요 시간을 뜻하지 않는다. 수집 방식과 실행 이력은 [수집 기록](docs/data_collection.md)에 정리했다. idle은 팔의 이동·회전 명령 6개가 모두 정확히 0인 프레임의 비율이며, 그리퍼 값은 제외한다. 수집 통계는 BC 정책 평가 성공률과 구분한다.
 
 - 공개 데이터: [Dataset A / Dataset C HDF5](https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2/releases/tag/collection-2026-10-28)
 - [수집 방법·전체 통계](docs/data_collection.md) · [파일명 대응·SHA256](data/manifest.json)
 - [최종 모델의 학습 이력](docs/training_status.md) · [학습 config](configs/final_train_config.json)
-
-## 최종 모델의 데이터 흐름
-
-```mermaid
-flowchart LR
-    A[Dataset B: 원본 20개] --> B[annotation 20개]
-    B --> C[Mimic 성공 시범 499개]
-    C --> D[BC-RNN / GMM: seed 101]
-    D --> E[epoch 2000: final_model.pth]
-```
-
-Dataset C은 이 모델의 학습 원본이 아니다. 두 20개 데이터 계열은 별도 실험 이름으로 관리한다. [데이터 내용 해시로 확인한 연결 관계](reports/dataset_lineage.json)를 제공한다.
 
 ## 영상
 

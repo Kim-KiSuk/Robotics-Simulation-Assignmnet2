@@ -42,14 +42,14 @@ LD_LIBRARY_PATH=/home/kisuk/miniforge3/envs/lerobot-arena/lib \
 
 ## 학습 코드
 
-선택 모델은 Dataset B에서 만든 성공 생성 시범 499개로 학습했다. 해당 Mimic HDF5는 이 Release의 공개 원본 두 개에 포함되지 않으므로 재학습에는 별도 로컬 파일이 필요하다. 추론 평가에는 HDF5가 필요하지 않다.
+선택 모델은 성공 생성 시범 499개로 학습했다. 해당 Mimic HDF5는 이 Release의 공개 원본 두 개에 포함되지 않으므로 재학습에는 별도 로컬 파일이 필요하다. 추론 평가에는 HDF5가 필요하지 않다.
 
 ```bash
 ./isaaclab.sh -p "$REPO/isaaclab_project/scripts/imitation_learning/robomimic/train.py" \
   --task Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-v0 \
   --algo bc \
   --dataset /path/to/toy2box_agibot_mimic_n20_500.hdf5 \
-  --epochs 2000 --name dataset_b_bc_rnn
+  --epochs 2000 --name final_bc_rnn
 ```
 
 이 학습 스크립트는 task에 등록된 BC config를 읽는다. `--config` 옵션을 받지 않는다. 과거 실행의 전체 설정은 `configs/final_train_config.json`으로 확인한다. seed나 설정을 바꾸는 실험은 해당 task config와 실제 저장된 학습 config를 함께 관리한다.

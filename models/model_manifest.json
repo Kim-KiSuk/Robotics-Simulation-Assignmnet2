@@ -2,7 +2,6 @@
   "model_file": "models/final_model.pth",
   "sha256": "10669f7c24bd04e39a8ed6417721877c01527c7f1797f58481314b8e6e8268bc",
   "bytes": 7985670,
-  "dataset_id": "Dataset B",
   "training_data": "toy2box_agibot_mimic_n20_500.hdf5",
   "actual_generated_episodes": 499,
   "training_seed": 101,
@@ -19,5 +18,6 @@
     "box_orientations"
   ],
   "source_checkpoint": "model_epoch_2000.pth",
-  "source_run": "20261028105120"
+  "source_run": "20261028105120",
+  "source_demonstrations_file": "toy2box_agibot_auto_n20.hdf5"
 }
