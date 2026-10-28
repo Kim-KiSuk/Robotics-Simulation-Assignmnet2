@@ -1,0 +1,68 @@
+[
+  {
+    "dataset": "toy2box_agibot_auto_100.hdf5",
+    "episode": "demo_0",
+    "video": "toy2box_agibot_auto_100/demo_0.mp4",
+    "frames": 240,
+    "fps": 20.0,
+    "replay_task_success_10_steps": true,
+    "peak_consecutive_success_steps": 10,
+    "replay_final_task_success": true,
+    "method": "initial_state_restore_then_recorded_action_replay"
+  },
+  {
+    "dataset": "toy2box_agibot_auto_100.hdf5",
+    "episode": "demo_49",
+    "video": "toy2box_agibot_auto_100/demo_49.mp4",
+    "frames": 249,
+    "fps": 20.0,
+    "replay_task_success_10_steps": true,
+    "peak_consecutive_success_steps": 10,
+    "replay_final_task_success": true,
+    "method": "initial_state_restore_then_recorded_action_replay"
+  },
+  {
+    "dataset": "toy2box_agibot_auto_100.hdf5",
+    "episode": "demo_99",
+    "video": "toy2box_agibot_auto_100/demo_99.mp4",
+    "frames": 261,
+    "fps": 20.0,
+    "replay_task_success_10_steps": true,
+    "peak_consecutive_success_steps": 10,
+    "replay_final_task_success": true,
+    "method": "initial_state_restore_then_recorded_action_replay"
+  },
+  {
+    "dataset": "toy2box_agibot_idle21_n20.hdf5",
+    "episode": "demo_0",
+    "video": "toy2box_agibot_idle21_n20/demo_0.mp4",
+    "frames": 439,
+    "fps": 20.0,
+    "replay_task_success_10_steps": true,
+    "peak_consecutive_success_steps": 10,
+    "replay_final_task_success": true,
+    "method": "initial_state_restore_then_recorded_action_replay"
+  },
+  {
+    "dataset": "toy2box_agibot_idle21_n20.hdf5",
+    "episode": "demo_9",
+    "video": "toy2box_agibot_idle21_n20/demo_9.mp4",
+    "frames": 424,
+    "fps": 20.0,
+    "replay_task_success_10_steps": true,
+    "peak_consecutive_success_steps": 10,
+    "replay_final_task_success": true,
+    "method": "initial_state_restore_then_recorded_action_replay"
+  },
+  {
+    "dataset": "toy2box_agibot_idle21_n20.hdf5",
+    "episode": "demo_19",
+    "video": "toy2box_agibot_idle21_n20/demo_19.mp4",
+    "frames": 384,
+    "fps": 20.0,
+    "replay_task_success_10_steps": true,
+    "peak_consecutive_success_steps": 10,
+    "replay_final_task_success": true,
+    "method": "initial_state_restore_then_recorded_action_replay"
+  }
+]

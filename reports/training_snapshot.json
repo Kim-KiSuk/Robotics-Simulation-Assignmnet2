@@ -1,0 +1,54 @@
+[
+  {
+    "config": "bc_auto100_mimic500.json",
+    "source_run": "logs/robomimic/Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-auto/bc_rnn_low_dim_agibot_toy2box/20261027100809",
+    "checkpoint_epochs_at_archive_time": [
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900,
+      1000,
+      1100,
+      1200,
+      1300,
+      1400,
+      1500,
+      1600,
+      1700,
+      1800,
+      1900,
+      2000
+    ],
+    "checkpoint_files_uploaded": false
+  },
+  {
+    "config": "bc_prior20_mimic499.json",
+    "source_run": "logs/robomimic/Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-v0/bc_rnn_low_dim_agibot_toy2box/20261028105120",
+    "checkpoint_epochs_at_archive_time": [
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900,
+      1000,
+      1100,
+      1200,
+      1300,
+      1400,
+      1500,
+      1600,
+      1700,
+      1800
+    ],
+    "checkpoint_files_uploaded": false
+  }
+]

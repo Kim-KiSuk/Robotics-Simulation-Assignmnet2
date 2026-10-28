@@ -1,0 +1,46 @@
+[
+  {
+    "raw": "toy2box_agibot_auto_100.hdf5",
+    "annotated": "toy2box_agibot_annotated_100.hdf5",
+    "matched_episodes": 99,
+    "unmatched_raw_episodes": [
+      "demo_39"
+    ],
+    "fingerprint": "SHA256(float32 actions + float32 eef_pos)"
+  },
+  {
+    "raw": "toy2box_agibot_auto_n20.hdf5",
+    "annotated": "toy2box_agibot_n20_annotated.hdf5",
+    "matched_episodes": 20,
+    "unmatched_raw_episodes": [],
+    "fingerprint": "SHA256(float32 actions + float32 eef_pos)"
+  },
+  {
+    "raw": "toy2box_agibot_idle21_n20.hdf5",
+    "annotated": "toy2box_agibot_n20_annotated.hdf5",
+    "matched_episodes": 0,
+    "unmatched_raw_episodes": [
+      "demo_0",
+      "demo_1",
+      "demo_2",
+      "demo_3",
+      "demo_4",
+      "demo_5",
+      "demo_6",
+      "demo_7",
+      "demo_8",
+      "demo_9",
+      "demo_10",
+      "demo_11",
+      "demo_12",
+      "demo_13",
+      "demo_14",
+      "demo_15",
+      "demo_16",
+      "demo_17",
+      "demo_18",
+      "demo_19"
+    ],
+    "fingerprint": "SHA256(float32 actions + float32 eef_pos)"
+  }
+]
