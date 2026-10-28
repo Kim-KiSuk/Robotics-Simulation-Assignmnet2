@@ -16,7 +16,7 @@ Agibot 오른팔로 트럭 장난감을 박스에 넣는 Toy2Box 과업의 데�
 | 실제 시범 재생 영상·정책 참고 영상 | [영상 목록](docs/videos.md) |
 | 다운로드·수집·재생·분석 명령 | [재현 방법](docs/reproduction.md) |
 | BC 학습 설정과 확인 범위 | [학습 기록](docs/training_status.md) |
-| HDF5 원본 7개 | [데이터 Release](https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2/releases/tag/collection-2026-10-28) |
+| 주요 HDF5 원본 2개 | [데이터 Release](https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2/releases/tag/collection-2026-10-28) |
 | 원본 파일 무결성 | [파일 크기·SHA256](data/manifest.json) |
 
 ## 주요 수집 데이터
@@ -67,17 +67,15 @@ flowchart TD
 
 ## 빠른 시작
 
-HDF5는 Git 이력 대신 Release assets로 제공합니다. 기본 다운로드는 주요 원본 두 개만 받습니다.
+주요 HDF5 두 개는 Git 이력 대신 Release assets로 제공합니다. 나머지 5개 로컬 파일은 원본을 공개 업로드하지 않았으며 통계·버전 연결 정보만 보관합니다.
 
 ```bash
 git clone https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2.git
 cd Robotics-Simulation-Assignmnet2
 python tools/download_data.py
-# annotation·이전 20개·Mimic 성공 데이터까지 받기
-python tools/download_data.py --all
 ```
 
-다운로드 도구는 파일 크기와 SHA256을 확인합니다. 전체 통계 재생성은 다음과 같습니다.
+다운로드 도구는 파일 크기와 SHA256을 확인합니다. 주요 원본 두 개의 통계 재생성은 다음과 같습니다.
 
 ```bash
 python tools/analyze_datasets.py --dataset_dir ./data

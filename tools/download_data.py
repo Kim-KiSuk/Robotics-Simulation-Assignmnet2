@@ -19,13 +19,10 @@ def digest(path):
 def main():
     root = Path(__file__).resolve().parents[1]
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--all", action="store_true", help="Include annotations, earlier 20 demos, and Mimic datasets.")
     parser.add_argument("--output_dir", type=Path, default=root / "data")
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
     for item in json.loads((root / "data/manifest.json").read_text()):
-        if not args.all and item["role"] not in ("automatic_standard_100", "automatic_varied_idle21_20_latest"):
-            continue
         path = args.output_dir / item["file"]
         if path.exists():
             if path.stat().st_size == item["bytes"] and digest(path) == item["sha256"]:

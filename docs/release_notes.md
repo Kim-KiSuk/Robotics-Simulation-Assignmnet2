@@ -1,13 +1,15 @@
 # Toy2Box collection archive — 2026-10-28
 
-HDF5 원본 7개를 원래 파일명과 바이트 그대로 보관합니다. 파일 크기와 SHA256은 저장소의 `data/manifest.json`에서 확인할 수 있습니다.
+요청된 주요 HDF5 원본 두 개를 원래 파일명과 바이트 그대로 공개합니다. 파일 크기와 SHA256은 저장소의 `data/manifest.json`에서 확인할 수 있습니다.
 
 ## 주요 수집 데이터
 
 - `toy2box_agibot_auto_100.hdf5`: 표준 자동 수집 성공 시범 100개, 29,229프레임.
 - `toy2box_agibot_idle21_n20.hdf5`: 속도 변화·멈춤·작은 보정을 추가한 최신 자동 수집 성공 시범 20개, 8,406프레임, idle 평균 19.79%.
 
-## 이전 버전과 증강 이력
+## 이전 버전과 증강 이력 — 통계만 포함
+
+다음 5개는 원본 HDF5 자체를 공개 업로드하지 않았으며, 저장소의 통계와 연결 관계 문서에만 포함합니다.
 
 - `toy2box_agibot_auto_n20.hdf5`: 최신 idle 조절 이전의 자동 시범 20개.
 - `toy2box_agibot_annotated_100.hdf5`: 실제 annotation 99개.

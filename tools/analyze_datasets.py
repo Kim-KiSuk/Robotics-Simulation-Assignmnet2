@@ -20,6 +20,7 @@ FILES = {
     "toy2box_agibot_mimic_n20_500.hdf5": "mimic_generated_from_prior_20",
 }
 RELEASE = "https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2/releases/download/collection-2026-10-28"
+PRIMARY_FILES = {"toy2box_agibot_auto_100.hdf5", "toy2box_agibot_idle21_n20.hdf5"}
 
 
 def sha256_file(path):
@@ -30,10 +31,12 @@ def sha256_file(path):
     return digest.hexdigest()
 
 
-def analyze(source, output):
+def analyze(source, output, include_related=False):
     output.mkdir(parents=True, exist_ok=True)
     summaries, fingerprints, manifest = [], {}, []
     for filename, role in FILES.items():
+        if filename not in PRIMARY_FILES and not include_related:
+            continue
         path = source / filename
         rows, signatures = [], {}
         with h5py.File(path, "r") as dataset:
@@ -100,10 +103,15 @@ def analyze(source, output):
                 "resets_completed": sum(bool(attempt.get("reset_completed")) for attempt in attempts),
             })
         summaries.append(summary)
-        manifest.append({
+        entry = {
             "file": filename, "role": role, "bytes": path.stat().st_size,
-            "sha256": sha256_file(path), "download_url": f"{RELEASE}/{filename}",
-        })
+            "sha256": sha256_file(path),
+        }
+        if filename in PRIMARY_FILES:
+            entry["download_url"] = f"{RELEASE}/{filename}"
+        else:
+            entry["availability"] = "local_only_not_published"
+        manifest.append(entry)
         print(json.dumps(summary, ensure_ascii=False))
 
     lineage = []
@@ -112,6 +120,8 @@ def analyze(source, output):
         ("toy2box_agibot_auto_n20.hdf5", "toy2box_agibot_n20_annotated.hdf5"),
         ("toy2box_agibot_idle21_n20.hdf5", "toy2box_agibot_n20_annotated.hdf5"),
     ]:
+        if raw not in fingerprints or annotated not in fingerprints:
+            continue
         source_hashes = fingerprints[raw]
         annotation_hashes = set(fingerprints[annotated].values())
         lineage.append({
@@ -121,13 +131,20 @@ def analyze(source, output):
             "fingerprint": "SHA256(float32 actions + float32 eef_pos)",
         })
     (output / "dataset_summary.json").write_text(json.dumps(summaries, indent=2, ensure_ascii=False) + "\n")
-    (output / "dataset_lineage.json").write_text(json.dumps(lineage, indent=2) + "\n")
-    (output.parent / "data/manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+    if lineage:
+        (output / "dataset_lineage.json").write_text(json.dumps(lineage, indent=2) + "\n")
+    (output.parent / "data").mkdir(parents=True, exist_ok=True)
+    (output.parent / "data/manifest.json").write_text(json.dumps(
+        [entry for entry in manifest if entry["file"] in PRIMARY_FILES], indent=2) + "\n")
+    if include_related:
+        (output / "related_local_datasets.json").write_text(json.dumps(
+            [entry for entry in manifest if entry["file"] not in PRIMARY_FILES], indent=2) + "\n")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dataset_dir", type=Path, required=True)
+    parser.add_argument("--include_related", action="store_true", help="Also audit the five related local files.")
     parser.add_argument("--output_dir", type=Path, default=Path(__file__).resolve().parents[1] / "reports")
     args = parser.parse_args()
-    analyze(args.dataset_dir, args.output_dir)
+    analyze(args.dataset_dir, args.output_dir, args.include_related)

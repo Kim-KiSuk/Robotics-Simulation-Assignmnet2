@@ -6,11 +6,9 @@
 git clone https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2.git
 cd Robotics-Simulation-Assignmnet2
 python tools/download_data.py
-# HDF5 7개 전체 받기
-python tools/download_data.py --all
 ```
 
-기본 다운로드는 100개 원본과 최신 20개 원본이다. 전체 다운로드는 이전 20개·annotation·Mimic 성공 데이터도 포함한다. 다운로드 후 SHA256을 자동 검사한다.
+100개 원본과 최신 20개 원본을 받는다. 이전 20개·annotation·Mimic HDF5 자체는 공개 Release에 포함하지 않았다. 다운로드 후 SHA256을 자동 검사한다.
 
 ## 2. 통계 재생성
 
@@ -19,7 +17,9 @@ conda activate lerobot-arena
 python tools/analyze_datasets.py --dataset_dir ./data
 ```
 
-분석 도구는 원본을 읽기 전용으로 열며 episode별 CSV, 요약 JSON, 연결 관계와 체크섬 manifest를 생성한다. 7개 파일 전체가 필요하다. `reports/*.run.json`은 수집 당시의 별도 기록이며 HDF5에서 복원되는 정보가 아니다. 도구는 데이터 폴더의 실행 로그를 우선 사용하고, 없으면 저장소에 보관한 실행 로그를 사용한다.
+분석 도구는 주요 원본 두 개를 읽기 전용으로 열며 episode별 CSV, 요약 JSON과 체크섬 manifest를 생성한다. `reports/*.run.json`은 수집 당시의 별도 기록이며 HDF5에서 복원되는 정보가 아니다. 도구는 데이터 폴더의 실행 로그를 우선 사용하고, 없으면 저장소에 보관한 실행 로그를 사용한다.
+
+기존 annotation·Mimic을 포함한 로컬 파일 7개가 모두 있으면 `--include_related`를 추가해 전체 통계와 연결 관계도 재생성한다. 보관된 연결 관계는 이 방식으로 검사했다.
 
 ## 3. 대표 시범을 실제 시뮬레이터에서 MP4로 재생
 
