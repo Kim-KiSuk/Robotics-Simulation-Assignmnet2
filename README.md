@@ -8,7 +8,6 @@
 
 | 제출 항목 | 위치 | 상태 |
 |---|---|---|
-| GitHub 프로젝트 | 이 저장소 | 환경·학습 코드와 실행 방법 포함 |
 | 최종 모델 1개 | [models/final_model.pth](models/final_model.pth) | VAR-20 → Mimic 499개 → epoch 2000, 학습 seed 101 |
 | 평가 명령어 | [submission/evaluate.txt](submission/evaluate.txt) | 검증 seed 42, rollout 100회, horizon 800 |
 | 5분 발표 PPT | [submission/toy2box_presentation_draft.pptx](submission/toy2box_presentation_draft.pptx) | 7장 초안, 정식 평가·통제 실험 보완 필요 |
