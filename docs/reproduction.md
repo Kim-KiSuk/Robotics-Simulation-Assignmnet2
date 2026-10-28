@@ -1,106 +1,91 @@
-# 다운로드와 재현 명령
+# 설치·학습·평가·데이터 재현
 
-## 1. 저장소와 원본 데이터 받기
+## 환경
 
-```bash
-git clone https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2.git
-cd Robotics-Simulation-Assignmnet2
-python tools/download_data.py
-```
+실행에는 Agibot Toy2Box task와 자산이 설치된 IsaacLab_RS, Isaac Sim, NVIDIA GPU, `lerobot-arena` Python 환경이 필요하다. 이 저장소는 task·로봇·controller·BC 학습·평가 코드를 `isaaclab_project/`에 포함한다. IsaacLab core와 시뮬레이터 자산은 별도 dependency다.
 
-100개 원본과 최신 20개 원본을 받는다. 이전 20개·annotation·Mimic HDF5 자체는 공개 Release에 포함하지 않았다. 다운로드 후 SHA256을 자동 검사한다.
+기반 저장소: `https://github.com/cailab-hy/IsaacLab_RS.git`.
+기반 commit과 포함 파일 SHA256: `isaaclab_project/source_manifest.json`.
 
-## 2. 통계 재생성
+기존 설치에 포함 코드를 적용하려면 다음을 사용한다. 수정할 파일은 백업한다.
 
 ```bash
-conda activate lerobot-arena
-python tools/analyze_datasets.py --dataset_dir ./data
+python tools/install_project_overlay.py --isaaclab_root /home/kisuk/IsaacLab_RS
+python tools/install_project_overlay.py --isaaclab_root /home/kisuk/IsaacLab_RS --apply
 ```
 
-분석 도구는 주요 원본 두 개를 읽기 전용으로 열며 episode별 CSV, 요약 JSON과 체크섬 manifest를 생성한다. `reports/*.run.json`은 수집 당시의 별도 기록이며 HDF5에서 복원되는 정보가 아니다. 도구는 데이터 폴더의 실행 로그를 우선 사용하고, 없으면 저장소에 보관한 실행 로그를 사용한다.
-
-기존 annotation·Mimic을 포함한 로컬 파일 7개가 모두 있으면 `--include_related`를 추가해 전체 통계와 연결 관계도 재생성한다. 보관된 연결 관계는 이 방식으로 검사했다.
-
-## 3. 대표 시범을 실제 시뮬레이터에서 MP4로 재생
-
-이 저장소는 Isaac Lab 전체나 로봇·물체 자산을 포함하지 않는다. 다음 명령은 Agibot task가 설치된 `IsaacLab_RS`와 `lerobot-arena` 환경을 전제로 한다. `REPO`를 저장소 절대 경로로 수정한다.
+## 선택 모델 평가
 
 ```bash
 conda activate lerobot-arena
 cd /home/kisuk/IsaacLab_RS
 REPO=/home/kisuk/IsaacLab_RS/Robotics-Simulation-Assignmnet2
 
-./isaaclab.sh -p "$REPO/tools/replay_dataset_video.py" \
-  --dataset_files \
-    "$REPO/data/toy2box_agibot_auto_100.hdf5" \
-    "$REPO/data/toy2box_agibot_idle21_n20.hdf5" \
-  --output_dir /tmp/toy2box_replay_new \
-  --samples_per_dataset 3 \
-  --headless
+./isaaclab.sh -p "$REPO/isaaclab_project/scripts/imitation_learning/robomimic/play.py" \
+  --task Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-v0 \
+  --checkpoint "$REPO/models/final_model.pth" \
+  --num_rollouts 100 --horizon 800 --seed 42 --headless
 ```
 
-도구는 각 파일에서 처음·중간·마지막 episode를 선택하고, 초기 상태 복원 후 action을 실행한다. 카메라를 활성화하고 렌더링을 직접 수행한다. 출력 폴더에 같은 영상이 있으면 덮어쓰지 않는다. 전체 episode를 재생하려면 `--samples_per_dataset 100`으로 지정한다. 20개 파일은 실제 episode 수까지만 선택한다.
+LMS용 명령어는 `submission/evaluate.txt`에도 있다. REPO와 IsaacLab_RS 위치를 환경에 맞게 수정한다. 조교 평가에는 지정받은 평가 seed를 사용한다.
 
-이 아카이브의 6개 영상은 다음 방식으로 생성했다. Conda C++ 라이브러리 충돌을 피하려고 환경의 `lib` 경로를 우선 적용했다.
+Conda C++ 라이브러리 충돌이 발생하면, 추론 확인에 사용한 환경에서는 다음과 같이 환경의 lib 경로를 우선 적용했다.
 
 ```bash
 LD_LIBRARY_PATH=/home/kisuk/miniforge3/envs/lerobot-arena/lib \
   /home/kisuk/miniforge3/envs/lerobot-arena/bin/python \
-  "$REPO/tools/replay_dataset_video.py" \
-  --dataset_files \
-    /home/kisuk/IsaacLab_RS/datasets/toy2box_agibot_auto_100.hdf5 \
-    /home/kisuk/IsaacLab_RS/datasets/toy2box_agibot_idle21_n20.hdf5 \
-  --output_dir /tmp/toy2box_replay_new \
-  --samples_per_dataset 3 --headless
-```
-
-원본 HDF5에는 RGB 프레임이 없으므로 카메라 프레임 변환 전용인 `hdf5_to_mp4.py`로 바로 영상을 만들 수 없다. 위 명령은 초기 상태와 action을 시뮬레이터에서 실제로 재생해 영상을 만든다.
-
-## 4. 최신 설정으로 새 자동 데이터 수집
-
-원본 경로를 자신의 환경에 맞게 변경한다. 참조 데이터는 이 저장소에 포함하지 않았다. 출력은 새 파일명을 사용한다.
-
-```bash
-conda activate lerobot-arena
-cd /home/kisuk/IsaacLab_RS
-REPO=/home/kisuk/IsaacLab_RS/Robotics-Simulation-Assignmnet2
-
-./isaaclab.sh -p "$REPO/tools/collection/record_toy2box_auto.py" \
-  --reference_dataset /home/kisuk/toy/toy2box_agibot.hdf5 \
-  --dataset_file ./datasets/toy2box_new_varied_20.hdf5 \
-  --num_demos 20 \
-  --motion_style varied \
-  --motion_variation_strength 1.0 \
-  --target_idle_fraction 0.21 \
-  --seed 101
-```
-
-이 명령은 새로운 자동 수집이며 과거 데이터를 바이트 단위로 재생성한다고 보장하지 않는다. 현재 수집기 스냅샷과 과거 `.run.json`을 구분한다.
-
-## 5. 사람이 가이드를 보며 직접 조작하는 모드
-
-```bash
-./isaaclab.sh -p "$REPO/tools/collection/record_toy2box_auto.py" \
-  --reference_dataset /home/kisuk/toy/toy2box_agibot.hdf5 \
-  --dataset_file ./datasets/toy2box_manual_new_20.hdf5 \
-  --num_demos 20 --full_sequence --sequence_order rotation_xy_z
-```
-
-`--full_sequence`는 사람의 키 입력으로 움직이며 위·왼쪽 화면과 전체 순서를 표시한다. 자동 수집용 `--motion_style varied`를 함께 지정하지 않는다. 표시된 키와 횟수를 보고 사람이 조작한다. 위·왼쪽 카메라는 표시용이며 RGB 저장은 추가하지 않는다.
-
-## 6. BC 학습·평가
-
-실제 학습 config는 `configs/`에 있다. `train.data`와 출력 경로를 환경에 맞게 변경한다. 100개 원본, 최신 20개 원본, 이전 20개에서 만든 Mimic 데이터를 구분한다.
-
-```bash
-./isaaclab.sh -p scripts/imitation_learning/robomimic/train.py \
+  "$REPO/isaaclab_project/scripts/imitation_learning/robomimic/play.py" \
   --task Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-v0 \
-  --algo bc --config /path/to/config.json
-
-./isaaclab.sh -p scripts/imitation_learning/robomimic/play.py \
-  --task Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-v0 \
-  --checkpoint /path/to/model.pth \
+  --checkpoint "$REPO/models/final_model.pth" \
   --num_rollouts 100 --horizon 800 --seed 42 --headless
 ```
 
-확인한 로컬 기록만으로는 최종 두 학습 seed의 BC 성공률을 확정할 수 없다. 수집 성공률이나 대표 재생의 성공을 BC 평가 결과로 대신하지 않는다.
+## 학습 코드
+
+선택 모델은 VAR-20에서 만든 성공 생성 시범 499개로 학습했다. 해당 Mimic HDF5는 이 Release의 공개 원본 두 개에 포함되지 않으므로 재학습에는 별도 로컬 파일이 필요하다. 추론 평가에는 HDF5가 필요하지 않다.
+
+```bash
+./isaaclab.sh -p "$REPO/isaaclab_project/scripts/imitation_learning/robomimic/train.py" \
+  --task Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-v0 \
+  --algo bc \
+  --dataset /path/to/toy2box_agibot_mimic_n20_500.hdf5 \
+  --epochs 2000 --name var20_bc_rnn
+```
+
+이 학습 스크립트는 task에 등록된 BC config를 읽는다. `--config` 옵션을 받지 않는다. 과거 실행의 전체 설정은 `configs/final_train_config.json`으로 확인한다. seed나 설정을 바꾸는 실험은 해당 task config와 실제 저장된 학습 config를 함께 관리한다.
+
+## AUTO-100 / PACE-20 다운로드와 분석
+
+저장소 루트에서 실행한다.
+
+```bash
+python tools/download_data.py
+python tools/analyze_datasets.py --dataset_dir ./data
+```
+
+공개 파일명은 `toy2box_auto100.hdf5`, `toy2box_pace20.hdf5`다. 원본 파일명·체크섬 대응은 `data/manifest.json`에 있다. 분석 도구는 두 공개 파일명과 수집 당시 원본 이름 모두 읽을 수 있다. 로컬 annotation·Mimic까지 7개 파일을 갖고 있으면 `--include_related`로 전체 통계와 연결 관계를 확인한다.
+
+## 실제 시범 MP4 재생성
+
+```bash
+cd /home/kisuk/IsaacLab_RS
+./isaaclab.sh -p "$REPO/tools/replay_dataset_video.py" \
+  --dataset_files "$REPO/data/toy2box_auto100.hdf5" "$REPO/data/toy2box_pace20.hdf5" \
+  --output_dir /tmp/toy2box_replay_named \
+  --samples_per_dataset 3 --headless
+```
+
+초기 상태를 복원하고 action 전체를 실행한다. RGB가 없는 HDF5를 카메라 프레임 변환 전용 `hdf5_to_mp4.py`에 바로 넣는 방식이 아니다. 도구는 카메라를 활성화하고 렌더링을 직접 수행한다. 같은 파일이 있으면 덮어쓰지 않는다.
+
+## 수집 코드와 직접 조작 모드
+
+`tools/collection/record_toy2box_auto.py`는 자동 수집과 수동 가이드를 지원한다. PACE-20 설정은 `--motion_style varied --motion_variation_strength 1.0 --target_idle_fraction 0.21`이다. 사람이 직접 움직이는 모드는 `--full_sequence --sequence_order rotation_xy_z`로 실행하며 자동 동작 옵션을 함께 지정하지 않는다. 새 수집에는 새 파일명을 사용한다.
+
+## 검증
+
+```bash
+python -m pytest -q tools/collection/test tools/test
+python tools/audit_videos.py
+```
+
+수집기 오프라인 검증과 HDF5 재생 성공은 BC 정책의 정식 100회 평가 결과와 별개다.

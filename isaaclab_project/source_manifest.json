@@ -1,0 +1,62 @@
+{
+  "base_repository": "https://github.com/cailab-hy/IsaacLab_RS.git",
+  "base_commit": "e83a5d2f11ca1b5f03b690e1978479e620c500e2",
+  "files": [
+    {
+      "path": "source/isaaclab_tasks/isaaclab_tasks/manager_based/manipulation/place/__init__.py",
+      "sha256": "a6688958065b7c8954ea674a4a030026a60c0d7b24d6e9c4a01469c318335cfd"
+    },
+    {
+      "path": "source/isaaclab_tasks/isaaclab_tasks/manager_based/manipulation/place/config/__init__.py",
+      "sha256": "a6688958065b7c8954ea674a4a030026a60c0d7b24d6e9c4a01469c318335cfd"
+    },
+    {
+      "path": "source/isaaclab_tasks/isaaclab_tasks/manager_based/manipulation/place/config/agibot/place_toy2box_rmp_rel_env_cfg.py",
+      "sha256": "bc01d693edd412e84f675713991de930004e3edf7e661a4e8749aafd2940d19e"
+    },
+    {
+      "path": "source/isaaclab_tasks/isaaclab_tasks/manager_based/manipulation/place/config/agibot/place_upright_mug_rmp_rel_env_cfg.py",
+      "sha256": "d4dc41bd32a0245d6396decdab5d125a61fa25c58321ff8d2c87c9e55d4a9941"
+    },
+    {
+      "path": "source/isaaclab_tasks/isaaclab_tasks/manager_based/manipulation/place/config/agibot/__init__.py",
+      "sha256": "23e4bdd154bf7a733d2663cca2c6de3b46db182b90c704633eb913a1e8cbf6f3"
+    },
+    {
+      "path": "source/isaaclab_tasks/isaaclab_tasks/manager_based/manipulation/place/config/agibot/agents/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "source/isaaclab_tasks/isaaclab_tasks/manager_based/manipulation/place/config/agibot/agents/robomimic/bc_rnn_low_dim.json",
+      "sha256": "1c6afe4440eaad1836e26c66a26420817db23f31fe0c9333ed9056b167409392"
+    },
+    {
+      "path": "source/isaaclab_tasks/isaaclab_tasks/manager_based/manipulation/place/mdp/observations.py",
+      "sha256": "f87c0f127b1f3927cef6537fd3802e5d5df8ec1a04940226af85f6a68e34d5aa"
+    },
+    {
+      "path": "source/isaaclab_tasks/isaaclab_tasks/manager_based/manipulation/place/mdp/terminations.py",
+      "sha256": "5537c5603bca07935f6b4d068167cac7e2c1d03722e5984112cf0f02813e68d1"
+    },
+    {
+      "path": "source/isaaclab_tasks/isaaclab_tasks/manager_based/manipulation/place/mdp/__init__.py",
+      "sha256": "262a5650fe417aefc1d7ffdf3f7904464f2899d9d4539e4c0809333c1dd80443"
+    },
+    {
+      "path": "source/isaaclab_assets/isaaclab_assets/robots/agibot.py",
+      "sha256": "12ea071dbeac6042ffe27439c88d58364703c8f176cd2931c5ce7f7e981b6164"
+    },
+    {
+      "path": "source/isaaclab/isaaclab/controllers/config/rmp_flow.py",
+      "sha256": "880f13655133850c8423c4f43f259e1e5a5a76c12a08123d2cd317f81c2a401e"
+    },
+    {
+      "path": "scripts/imitation_learning/robomimic/play.py",
+      "sha256": "25b89aa2483d5d4379b5042c9b82996ce96e30a9084b18d1cc7f632958ab568f"
+    },
+    {
+      "path": "scripts/imitation_learning/robomimic/train.py",
+      "sha256": "7d38483469b7655f87435dea2ea82ac8b4229fce3d1cae937fb938f9280debfe"
+    }
+  ]
+}

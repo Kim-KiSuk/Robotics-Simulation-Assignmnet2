@@ -1,0 +1,23 @@
+{
+  "model_file": "models/final_model.pth",
+  "sha256": "10669f7c24bd04e39a8ed6417721877c01527c7f1797f58481314b8e6e8268bc",
+  "bytes": 7985670,
+  "dataset_id": "VAR-20",
+  "training_data": "toy2box_agibot_mimic_n20_500.hdf5",
+  "actual_generated_episodes": 499,
+  "training_seed": 101,
+  "checkpoint_epoch": 2000,
+  "selection_rule": "user_selected_fixed_epoch_2000",
+  "algorithm": "bc",
+  "observation_keys": [
+    "eef_pos",
+    "eef_quat",
+    "gripper_pos",
+    "toy_truck_positions",
+    "toy_truck_orientations",
+    "box_positions",
+    "box_orientations"
+  ],
+  "source_checkpoint": "model_epoch_2000.pth",
+  "source_run": "20261028105120"
+}

@@ -1,29 +1,25 @@
-# BC 학습 설정과 확인 범위
+# 선택 모델과 학습 기록
 
-정리 시점: 2026-10-28. 아래 내용은 실제 로컬 config와 체크포인트 파일 목록을 기준으로 작성했다. config에 설정한 목표 epoch와 실제 완료 epoch를 구분한다.
+## 최종 모델
 
-## 보관한 설정
+| 항목 | 값 |
+|---|---|
+| 파일 | `models/final_model.pth` |
+| 데이터 계열 | VAR-20 → annotation 20개 → Mimic 성공 생성 499개 |
+| source checkpoint | `20261028105120/models/model_epoch_2000.pth` |
+| 선택 기준 | 사용자 지정, 고정 epoch 2000 |
+| 학습 seed | 101 |
+| 정책 | BC-RNN, LSTM hidden 400·2 layers, GMM 5 modes |
+| batch / sequence length | 100 / 10 |
+| optimizer | Adam, 학습률 0.001 |
+| epoch당 학습 step 설정 | 100 |
+| 가중치 수 | 저장소에 선택 모델 1개만 포함 |
 
-| 항목 | 100개 계열 | 이전 20개 계열 |
-|---|---|---|
-| config | [bc_auto100_mimic500.json](../configs/bc_auto100_mimic500.json) | [bc_prior20_mimic499.json](../configs/bc_prior20_mimic499.json) |
-| 학습 입력 | `toy2box_agibot_mimic_n100_500.hdf5` | `toy2box_agibot_mimic_n20_500.hdf5` |
-| 실제 생성 시범 수 | 500 | 499 |
-| 학습 seed | 101 | 101 |
-| 목표 epoch | 2,000 | 2,000 |
-| batch size | 100 | 100 |
-| sequence length | 10 | 10 |
-| RNN | LSTM, hidden 400, 2 layers | LSTM, hidden 400, 2 layers |
-| 행동 분포 | GMM, 5 modes | GMM, 5 modes |
-| optimizer | Adam, 학습률 0.001 | Adam, 학습률 0.001 |
-| epoch당 학습 step 설정 | 100 | 100 |
-| 파일 목록 확인 시 최대 checkpoint epoch | 2,000 | 1,800 |
+모델 내부 config가 VAR-20 계열의 `toy2box_agibot_mimic_n20_500.hdf5`를 학습 입력으로 사용했음을 확인했다. 실제 성공 episode는 499개다. [모델 manifest](../models/model_manifest.json)와 [학습 config](../configs/final_train_config.json)를 제공한다.
 
-학습이 별도 프로세스에서 진행 중일 수 있으므로 파일 목록은 스냅샷이다. [정리 시점의 목록](../reports/training_snapshot.json)을 참고한다. 모델 가중치는 이번 데이터·영상 아카이브에 포함하지 않았다.
+AUTO-100 계열 config는 [참고 설정](../configs/auto100_reference_train_config.json)으로 보관하며 가중치는 추가하지 않았다. PACE-20은 선택 모델의 학습 원본이 아니다.
 
-## 입력 관측
-
-두 config는 다음 7개 low-dimensional 관측을 사용한다.
+## 실제 입력
 
 ```text
 eef_pos                  3
@@ -32,24 +28,16 @@ gripper_pos              2
 toy_truck_positions      3
 toy_truck_orientations   4
 box_positions            3
-box_orientations        4
-총 입력 차원            23
+box_orientations         4
+총 입력                 23차원
 ```
 
-HDF5에 저장된 관측 전체와 학습 config에서 실제 선택한 입력은 다르다. 저장 데이터에 관절 상태가 있다고 해서 해당 학습이 모든 관절 상태를 입력받았다고 설명하지 않는다.
+HDF5 전체 관측과 실제 policy 입력을 구분한다. 저장된 관절 상태는 이 config의 입력 목록에 없다.
 
-## 현재 확정할 수 없는 결과
+## 평가와 분석
 
-- 학습 seed 101·111 두 조건을 모두 완료한 공정 비교 결과는 확인하지 않았다.
-- 평가 seed, checkpoint 선택 규칙과 연결된 최종 100회 BC rollout 성공률은 이 아카이브에서 확정하지 않는다.
-- 기존 정책 참고 영상 두 개만으로 성공률을 계산하지 않는다.
-- 100개·최근 20개 수집기의 시도 성공률을 BC 성공률로 바꾸어 쓰지 않는다.
-- 이전 20개에서 만든 Mimic 학습을 최신 idle 목표 21% 데이터의 학습이라고 설명하지 않는다.
+선택 모델로 로드·추론을 실행한 [부분 확인 기록](../submission/model_smoke_check.json)을 제공한다. 실행을 마친 일부 rollout만 포함하므로 100회 정식 성공률이나 학습 seed 2개의 평균·표준편차로 사용하지 않는다.
 
-## 다음 실험을 진행할 때
+[평가 명령어](../submission/evaluate.txt)는 PDF 기준인 `--num_rollouts 100 --horizon 800 --seed 42`를 따른다. 이 검증 seed와 조교의 비공개 평가 seed를 구분한다.
 
-1. [연구주제](research_topics.md) 하나와 baseline 실패 진단을 연결한다.
-2. 학습·검증 데이터를 원본 episode 계열 기준으로 분리한다.
-3. 학습 seed 101·111과 동일한 학습·checkpoint 선택 기준을 적용한다.
-4. 검증 seed 42로 100회, horizon 800 평가를 진행한다.
-5. 성공률 평균·표준편차와 접근·파지·운반·배치 실패 분포를 보고한다.
+추가 확인 항목은 학습 seed 111, 접근·파지·운반·배치 실패 분류, 진단한 원인 하나에 대한 통제 실험이다. 수집기의 성공률과 정책 평가 성공률을 혼동하지 않는다.

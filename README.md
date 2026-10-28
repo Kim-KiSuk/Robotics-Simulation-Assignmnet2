@@ -1,100 +1,87 @@
-# Robotics Simulation Assignment 2 — Agibot Toy2Box
+# Agibot Toy2Box — Robotics Simulation Assignment 2
 
-Agibot 오른팔로 트럭 장난감을 박스에 넣는 Toy2Box 과업의 데이터 수집, Mimic 증강 이력, 재생 영상과 연구계획을 정리한 저장소입니다.
+**연구 질문:** 사람 시범으로 학습한 BC 정책은 Toy2Box에서 왜 성공률이 저조한가? 원인 하나를 진단하고 그 원인을 겨냥해 성공률을 높인다.
 
-- 과업: `Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-v0`
-- 제어: RMPFlow, 상대 위치·회전 6차원 + 그리퍼 1차원
-- 데이터 제어 주기: 20 Hz
-- 정리 기준일: 2026-10-28 (Asia/Seoul)
+`Robotics_Simulation_Week08.pdf` 47~54페이지를 기준으로 정리한 과제 프로젝트다. 환경·학습 코드, 선택한 모델 가중치 1개, 평가 명령어, 데이터 통계와 재생 영상을 제공한다.
 
-## 바로 보기
+## 제출 파일
 
-| 내용 | 문서·파일 |
-|---|---|
-| 네 연구 축의 새 주제 12개와 실험 개요 | [Markdown](docs/research_topics.md) · [일반 텍스트](docs/research_topics.txt) |
-| 데이터 수집 방법·통계·버전 관계 | [수집 기록](docs/data_collection.md) |
-| 실제 시범 재생 영상·정책 참고 영상 | [영상 목록](docs/videos.md) |
-| 다운로드·수집·재생·분석 명령 | [재현 방법](docs/reproduction.md) |
-| BC 학습 설정과 확인 범위 | [학습 기록](docs/training_status.md) |
-| 주요 HDF5 원본 2개 | [데이터 Release](https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2/releases/tag/collection-2026-10-28) |
-| 원본 파일 무결성 | [파일 크기·SHA256](data/manifest.json) |
+| 제출 항목 | 위치 | 상태 |
+|---|---|---|
+| GitHub 프로젝트 | 이 저장소 | 환경·학습 코드와 실행 방법 포함 |
+| 최종 모델 1개 | [models/final_model.pth](models/final_model.pth) | VAR-20 → Mimic 499개 → epoch 2000, 학습 seed 101 |
+| 평가 명령어 | [submission/evaluate.txt](submission/evaluate.txt) | 검증 seed 42, rollout 100회, horizon 800 |
+| 5분 발표 PPT | [submission/toy2box_presentation_draft.pptx](submission/toy2box_presentation_draft.pptx) | 7장 초안, 정식 평가·통제 실험 보완 필요 |
+| 제출 기준과 확인 항목 | [submission/requirements.md](submission/requirements.md) | PDF 47~54페이지 대응 |
 
-## 주요 수집 데이터
+최종 모델은 사용자가 선택한 고정 epoch 2000 체크포인트다. 여러 모델 중 최고 성능을 검증해 선정했다는 의미는 아니다. [모델 해시·학습 이력](models/model_manifest.json)을 함께 제공한다.
 
-| 항목 | 이전 100개 데이터 | 최근 20개 데이터 |
-|---|---:|---:|
-| 파일 | `toy2box_agibot_auto_100.hdf5` | `toy2box_agibot_idle21_n20.hdf5` |
-| 실제 수집 방식 | 자동 피드백 제어 | 속도 변화·멈춤·작은 보정을 넣은 자동 피드백 제어 |
-| 저장된 성공 시범 | 100 | 20 |
-| 총 시도 | 278 | 120 |
-| 수집 시도 성공률 | 35.97% | 16.67% |
-| 총 프레임 | 29,229 | 8,406 |
-| 평균 시범 길이 | 14.61초 | 21.02초 |
-| episode별 idle 평균 | 0.70% | 19.79% |
-| episode별 idle 범위 | 0.50~0.85% | 18.48~20.89% |
-| 그리퍼 전환 | 모든 시범 2회 | 모든 시범 2회 |
-| 수집 seed | 42 | 101 |
+## 데이터 세트
 
-`idle`은 팔의 이동·회전 명령 6개가 모두 정확히 0인 프레임의 비율입니다. 그리퍼 값은 idle 계산에서 제외합니다. 저장된 성공 시범만 있는 비율과 전체 수집 시도의 성공률은 구분합니다. 위 수치는 BC 정책 평가 성공률이 아닙니다.
+| 실험 이름 | 구성 | 시범 수 | 평균 길이 | idle 평균 | 용도 |
+|---|---|---:|---:|---:|---|
+| **AUTO-100** | 표준 자동 피드백 수집 | 100 | 14.61초 | 0.70% | 수집·증강 참고 기준 |
+| **VAR-20** | 속도 변화와 짧은 멈춤을 포함한 자동 수집 | 20 | 17.68초 | 4.78% | 최종 모델의 원본 계열 |
+| **PACE-20** | idle 목표 21%와 분산 멈춤을 적용한 자동 수집 | 20 | 21.02초 | 19.79% | 동작 시간 구성 비교용 |
 
-두 데이터는 수집 seed와 동작 방식이 다릅니다. 이 표 자체를 한 요인 통제 실험의 결과로 해석하지 않습니다. 최신 20개도 실행 로그에 `mode: automatic`, `motion_style: varied`가 기록되어 있습니다.
+수집 방식은 실제 실행 기록에 따른다. idle은 팔의 이동·회전 명령 6개가 모두 정확히 0인 프레임의 비율이며, 그리퍼 값은 제외한다. 수집 통계는 BC 정책 평가 성공률과 구분한다.
 
-## 실제 시범 재생 영상
+- 공개 데이터: [AUTO-100 / PACE-20 HDF5](https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2/releases/tag/collection-2026-10-28)
+- [수집 방법·전체 통계](docs/data_collection.md) · [파일명 대응·SHA256](data/manifest.json)
+- [최종 모델의 학습 이력](docs/training_status.md) · [학습 config](configs/final_train_config.json)
 
-두 HDF5의 초기 상태를 복원하고 저장된 action을 순서대로 실행하여 새로 렌더링했습니다. 각 데이터에서 처음·중간·마지막 시범을 골랐습니다. 전체 120개를 검증한 결과는 아닙니다.
-
-[![대표 재생 프레임](videos/previews/contact_sheet.jpg)](docs/videos.md)
-
-| 데이터 | 대표 영상 |
-|---|---|
-| 100개 자동 수집 | [demo_0](videos/toy2box_agibot_auto_100/demo_0.mp4) · [demo_49](videos/toy2box_agibot_auto_100/demo_49.mp4) · [demo_99](videos/toy2box_agibot_auto_100/demo_99.mp4) |
-| 최근 20개 자동 수집 | [demo_0](videos/toy2box_agibot_idle21_n20/demo_0.mp4) · [demo_9](videos/toy2box_agibot_idle21_n20/demo_9.mp4) · [demo_19](videos/toy2box_agibot_idle21_n20/demo_19.mp4) |
-
-선택한 6개는 재생 중 기존 task 성공 조건을 10 step 연속 충족했습니다. [재생 판정 기록](videos/replay_results.json)과 [영상 디코딩 검사](reports/video_audit.json)를 함께 제공합니다. 성공 판정·환경·초기 물체 위치를 영상용으로 바꾸지 않았습니다. 재생 중 자동 종료만 비활성화하여 저장된 action 전체를 실행했습니다.
-
-## 데이터 버전 관계
+## 최종 모델의 데이터 흐름
 
 ```mermaid
-flowchart TD
-    A[자동 수집 100개] --> B[annotation 99개]
-    B --> C[Mimic 성공 시범 500개]
-    D[이전 자동 수집 20개: idle 평균 4.78%] --> E[annotation 20개]
-    E --> F[Mimic 성공 시범 499개]
-    G[최근 자동 수집 20개: idle 평균 19.79%]
+flowchart LR
+    A[VAR-20: 원본 20개] --> B[annotation 20개]
+    B --> C[Mimic 성공 시범 499개]
+    C --> D[BC-RNN / GMM: seed 101]
+    D --> E[epoch 2000: final_model.pth]
 ```
 
-파일명 `annotated_100`에는 실제 99개가 있고 원본 `demo_39`가 포함되어 있지 않습니다. 기존 20개 annotation의 action·손끝 위치는 이전 `auto_n20`과 모두 일치하며, 최신 `idle21_n20`과는 일치하지 않습니다. 최신 20개에서 새로 생성한 Mimic 데이터는 이 아카이브에 없습니다. [내용 해시로 확인한 연결 관계](reports/dataset_lineage.json)를 참고하세요.
+PACE-20은 이 모델의 학습 원본이 아니다. 두 20개 데이터 계열은 별도 실험 이름으로 관리한다. [데이터 내용 해시로 확인한 연결 관계](reports/dataset_lineage.json)를 제공한다.
 
-## 빠른 시작
+## 영상
 
-주요 HDF5 두 개는 Git 이력 대신 Release assets로 제공합니다. 나머지 5개 로컬 파일은 원본을 공개 업로드하지 않았으며 통계·버전 연결 정보만 보관합니다.
+[![AUTO-100과 PACE-20의 시범 재생](videos/previews/contact_sheet.jpg)](docs/videos.md)
+
+| 데이터 | 실제 시범 재생 영상 |
+|---|---|
+| AUTO-100 | [demo_0](videos/auto100/demo_0.mp4) · [demo_49](videos/auto100/demo_49.mp4) · [demo_99](videos/auto100/demo_99.mp4) |
+| PACE-20 | [demo_0](videos/pace20/demo_0.mp4) · [demo_9](videos/pace20/demo_9.mp4) · [demo_19](videos/pace20/demo_19.mp4) |
+
+위 6개는 HDF5 초기 상태와 저장 action을 실제 시뮬레이터에서 재생한 영상이다. 선택한 6개 모두 기존 성공 조건을 10 step 연속 충족했다. 학습된 정책의 독립 평가 영상과는 구분한다. [영상 설명·검사 결과](docs/videos.md)를 참고한다.
+
+## 실행
+
+기존 IsaacLab_RS 환경에서 다음 명령을 실행한다. `REPO`는 이 저장소의 절대 경로다.
 
 ```bash
-git clone https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2.git
-cd Robotics-Simulation-Assignmnet2
-python tools/download_data.py
+conda activate lerobot-arena
+cd /home/kisuk/IsaacLab_RS
+REPO=/home/kisuk/IsaacLab_RS/Robotics-Simulation-Assignmnet2
+
+./isaaclab.sh -p "$REPO/isaaclab_project/scripts/imitation_learning/robomimic/play.py"   --task Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-v0   --checkpoint "$REPO/models/final_model.pth"   --num_rollouts 100 --horizon 800 --seed 42 --headless
 ```
 
-다운로드 도구는 파일 크기와 SHA256을 확인합니다. 주요 원본 두 개의 통계 재생성은 다음과 같습니다.
+새 환경에는 [설치·재현 방법](docs/reproduction.md)에 따라 고정한 IsaacLab_RS 기반 코드 위에 `isaaclab_project/`를 적용한다. 로봇·물체 USD와 Isaac Sim 자체는 별도 설치 자산이다.
 
-```bash
-python tools/analyze_datasets.py --dataset_dir ./data
-```
+## 평가 상태
 
-분석에는 `h5py`, `numpy`가 필요합니다. 실제 영상 재생에는 Agibot task와 자산이 설치된 IsaacLab_RS/Isaac Sim 및 NVIDIA GPU가 필요합니다. [전체 명령](docs/reproduction.md)을 확인하세요.
+선택 모델의 로드·추론 실행을 확인했다. [부분 실행 기록](submission/model_smoke_check.json)은 100회 정식 평가 결과가 아니다. 학습 seed 101·111의 공정 비교, 실패 단계 정량 분류와 단일 요인 통제 실험은 별도 보완 항목이다. 발표 PPT에서도 미완료 항목을 결과와 구분했다.
 
-## 파일 구성
+## 폴더
 
 ```text
-docs/                  연구주제·수집 기록·영상 안내·재현 명령
-reports/               episode별 CSV, 요약 JSON, 원본 수집 실행 로그
-data/manifest.json     Release HDF5 목록, 크기, SHA256
-configs/               실제 BC 학습 설정 사본
-tools/                 분석·다운로드·영상 재생 도구
-tools/collection/      수집기 및 동작 변화·수동 가이드 모듈 스냅샷
-videos/                대표 시범 재생 MP4, 기존 정책 참고 MP4, 미리보기
+isaaclab_project/       과업 환경·로봇·RMPFlow·BC 학습 및 평가 코드
+models/                최종 가중치 1개와 SHA256 manifest
+submission/            평가 명령어, 제출 기준, 발표 PPT 초안
+configs/               선택 모델과 참고 학습 설정
+reports/               episode CSV, 수집 로그, 데이터 연결·영상 검사
+videos/                AUTO-100·PACE-20 재생 영상, 정책 참고 영상
+tools/                 다운로드·분석·재생·설치 도구
 ```
 
-현재 수집기 스냅샷은 정리 시점의 코드입니다. 이전 100개를 수집할 당시 코드와 완전히 동일하다고 보장하지 않으며, 수집 당시 설정은 각 `.run.json`을 기준으로 확인합니다.
-
-오프라인 검증은 `python -m pytest -q tools/collection/test tools/test`로 실행합니다. [외부 코드 고지](THIRD_PARTY_NOTICES.md)도 참고하세요.
+검증: `python -m pytest -q tools/collection/test tools/test`.
+[외부 코드 고지](THIRD_PARTY_NOTICES.md)를 참고한다.

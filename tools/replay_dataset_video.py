@@ -67,7 +67,7 @@ def main():
                         active_task = task
                     names = sorted(handler.get_episode_names(), key=lambda name: int(name.split("_")[-1]))
                     indices = np.unique(np.linspace(0, len(names) - 1, min(len(names), args.samples_per_dataset), dtype=int))
-                    folder = args.output_dir / dataset.stem
+                    folder = args.output_dir / dataset.stem.removeprefix("toy2box_")
                     folder.mkdir(parents=True, exist_ok=True)
                     for index in indices:
                         name = names[int(index)]

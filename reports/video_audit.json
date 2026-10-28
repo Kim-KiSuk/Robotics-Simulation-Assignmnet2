@@ -1,6 +1,6 @@
 [
   {
-    "video": "toy2box_agibot_auto_100/demo_0.mp4",
+    "video": "auto100/demo_0.mp4",
     "decoded_frames": 240,
     "fps": 20.0,
     "sample_frame_mean_intensities": [
@@ -12,7 +12,7 @@
     "nonblack_and_motion_verified": true
   },
   {
-    "video": "toy2box_agibot_auto_100/demo_49.mp4",
+    "video": "auto100/demo_49.mp4",
     "decoded_frames": 249,
     "fps": 20.0,
     "sample_frame_mean_intensities": [
@@ -24,7 +24,7 @@
     "nonblack_and_motion_verified": true
   },
   {
-    "video": "toy2box_agibot_auto_100/demo_99.mp4",
+    "video": "auto100/demo_99.mp4",
     "decoded_frames": 261,
     "fps": 20.0,
     "sample_frame_mean_intensities": [
@@ -36,7 +36,7 @@
     "nonblack_and_motion_verified": true
   },
   {
-    "video": "toy2box_agibot_idle21_n20/demo_0.mp4",
+    "video": "pace20/demo_0.mp4",
     "decoded_frames": 439,
     "fps": 20.0,
     "sample_frame_mean_intensities": [
@@ -48,7 +48,7 @@
     "nonblack_and_motion_verified": true
   },
   {
-    "video": "toy2box_agibot_idle21_n20/demo_9.mp4",
+    "video": "pace20/demo_9.mp4",
     "decoded_frames": 424,
     "fps": 20.0,
     "sample_frame_mean_intensities": [
@@ -60,7 +60,7 @@
     "nonblack_and_motion_verified": true
   },
   {
-    "video": "toy2box_agibot_idle21_n20/demo_19.mp4",
+    "video": "pace20/demo_19.mp4",
     "decoded_frames": 384,
     "fps": 20.0,
     "sample_frame_mean_intensities": [

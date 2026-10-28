@@ -1,0 +1,43 @@
+{
+  "status": "partial_smoke_check_not_official_100_rollout_result",
+  "dataset_id": "VAR-20",
+  "model": "models/final_model.pth",
+  "model_sha256": "10669f7c24bd04e39a8ed6417721877c01527c7f1797f58481314b8e6e8268bc",
+  "training_seed": 101,
+  "validation_seed": 42,
+  "requested_rollouts": 100,
+  "completed_rollouts": 7,
+  "horizon": 800,
+  "successes_completed": 4,
+  "trials": [
+    {
+      "trial": 0,
+      "success": false
+    },
+    {
+      "trial": 1,
+      "success": false
+    },
+    {
+      "trial": 2,
+      "success": true
+    },
+    {
+      "trial": 3,
+      "success": true
+    },
+    {
+      "trial": 4,
+      "success": true
+    },
+    {
+      "trial": 5,
+      "success": false
+    },
+    {
+      "trial": 6,
+      "success": true
+    }
+  ],
+  "note": "Stopped after confirming model loading and inference. Do not report this as a completed 100-rollout evaluation."
+}

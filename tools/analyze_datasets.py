@@ -12,15 +12,19 @@ import numpy as np
 
 FILES = {
     "toy2box_agibot_auto_100.hdf5": "automatic_standard_100",
-    "toy2box_agibot_idle21_n20.hdf5": "automatic_varied_idle21_20_latest",
-    "toy2box_agibot_auto_n20.hdf5": "automatic_varied_20_before_idle_budget",
+    "toy2box_agibot_idle21_n20.hdf5": "automatic_pace20",
+    "toy2box_agibot_auto_n20.hdf5": "automatic_var20",
     "toy2box_agibot_annotated_100.hdf5": "mimic_annotation_from_standard_100",
-    "toy2box_agibot_n20_annotated.hdf5": "mimic_annotation_from_prior_20",
+    "toy2box_agibot_n20_annotated.hdf5": "mimic_annotation_from_var20",
     "toy2box_agibot_mimic_n100_500.hdf5": "mimic_generated_from_standard_100",
-    "toy2box_agibot_mimic_n20_500.hdf5": "mimic_generated_from_prior_20",
+    "toy2box_agibot_mimic_n20_500.hdf5": "mimic_generated_from_var20",
 }
 RELEASE = "https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2/releases/download/collection-2026-10-28"
 PRIMARY_FILES = {"toy2box_agibot_auto_100.hdf5", "toy2box_agibot_idle21_n20.hdf5"}
+PUBLIC_NAMES = {
+    "toy2box_agibot_auto_100.hdf5": ("AUTO-100", "toy2box_auto100.hdf5"),
+    "toy2box_agibot_idle21_n20.hdf5": ("PACE-20", "toy2box_pace20.hdf5"),
+}
 
 
 def sha256_file(path):
@@ -37,7 +41,10 @@ def analyze(source, output, include_related=False):
     for filename, role in FILES.items():
         if filename not in PRIMARY_FILES and not include_related:
             continue
-        path = source / filename
+        dataset_id, public_name = PUBLIC_NAMES.get(filename, ("VAR-20" if filename == "toy2box_agibot_auto_n20.hdf5" else role, filename))
+        path = source / public_name
+        if not path.exists():
+            path = source / filename
         rows, signatures = [], {}
         with h5py.File(path, "r") as dataset:
             data = dataset["data"]
@@ -67,12 +74,13 @@ def analyze(source, output, include_related=False):
                 signatures[name] = digest.hexdigest()
             assert int(data.attrs["total"]) == sum(row["frames"] for row in rows)
         fingerprints[filename] = signatures
-        with (output / f"{path.stem}.episodes.csv").open("w", newline="") as target:
+        with (output / f"{Path(public_name).stem}.episodes.csv").open("w", newline="") as target:
             writer = csv.DictWriter(target, fieldnames=rows[0].keys(), lineterminator="\n")
             writer.writeheader()
             writer.writerows(rows)
         summary = {
-            "file": filename, "role": role, "task": metadata["env_name"], "fps": 1 / dt,
+            "file": public_name, "original_file": filename, "dataset_id": dataset_id,
+            "role": role, "task": metadata["env_name"], "fps": 1 / dt,
             "episodes": len(rows), "saved_successes": sum(row["success"] for row in rows),
             "total_frames": sum(row["frames"] for row in rows),
             "total_seconds": sum(row["seconds"] for row in rows),
@@ -84,12 +92,13 @@ def analyze(source, output, include_related=False):
             "gripper_switches_min": min(row["gripper_switches"] for row in rows),
             "gripper_switches_max": max(row["gripper_switches"] for row in rows),
         }
-        log = path.with_suffix(".run.json")
-        if not log.exists():
-            log = output / log.name
-        if log.exists():
+        logs = [source / Path(filename).with_suffix(".run.json"), path.with_suffix(".run.json"),
+                output / "collection" / (dataset_id.replace("-", "").lower() + ".run.json"),
+                output / Path(filename).with_suffix(".run.json")]
+        log = next((candidate for candidate in logs if candidate.exists()), None)
+        if log is not None:
             report = json.loads(log.read_text())
-            assert Path(report["dataset_file"]).name == filename
+            assert Path(report["dataset_file"]).name in {filename, public_name}
             assert report["successful_demos"] == summary["saved_successes"]
             attempts = report["attempts"]
             summary.update({
@@ -104,11 +113,12 @@ def analyze(source, output, include_related=False):
             })
         summaries.append(summary)
         entry = {
-            "file": filename, "role": role, "bytes": path.stat().st_size,
+            "file": public_name, "original_file": filename, "dataset_id": dataset_id,
+            "role": role, "bytes": path.stat().st_size,
             "sha256": sha256_file(path),
         }
         if filename in PRIMARY_FILES:
-            entry["download_url"] = f"{RELEASE}/{filename}"
+            entry["download_url"] = f"{RELEASE}/{public_name}"
         else:
             entry["availability"] = "local_only_not_published"
         manifest.append(entry)
@@ -125,7 +135,7 @@ def analyze(source, output, include_related=False):
         source_hashes = fingerprints[raw]
         annotation_hashes = set(fingerprints[annotated].values())
         lineage.append({
-            "raw": raw, "annotated": annotated,
+            "raw": PUBLIC_NAMES.get(raw, (None, raw))[1], "annotated": annotated,
             "matched_episodes": sum(value in annotation_hashes for value in source_hashes.values()),
             "unmatched_raw_episodes": [key for key, value in source_hashes.items() if value not in annotation_hashes],
             "fingerprint": "SHA256(float32 actions + float32 eef_pos)",
@@ -135,10 +145,10 @@ def analyze(source, output, include_related=False):
         (output / "dataset_lineage.json").write_text(json.dumps(lineage, indent=2) + "\n")
     (output.parent / "data").mkdir(parents=True, exist_ok=True)
     (output.parent / "data/manifest.json").write_text(json.dumps(
-        [entry for entry in manifest if entry["file"] in PRIMARY_FILES], indent=2) + "\n")
+        [entry for entry in manifest if entry["original_file"] in PRIMARY_FILES], indent=2) + "\n")
     if include_related:
         (output / "related_local_datasets.json").write_text(json.dumps(
-            [entry for entry in manifest if entry["file"] not in PRIMARY_FILES], indent=2) + "\n")
+            [entry for entry in manifest if entry["original_file"] not in PRIMARY_FILES], indent=2) + "\n")
 
 
 if __name__ == "__main__":

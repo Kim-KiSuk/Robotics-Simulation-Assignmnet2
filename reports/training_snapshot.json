@@ -1,6 +1,6 @@
 [
   {
-    "config": "bc_auto100_mimic500.json",
+    "config": "auto100_reference_train_config.json",
     "source_run": "logs/robomimic/Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-auto/bc_rnn_low_dim_agibot_toy2box/20261027100809",
     "checkpoint_epochs_at_archive_time": [
       100,
@@ -27,7 +27,7 @@
     "checkpoint_files_uploaded": false
   },
   {
-    "config": "bc_prior20_mimic499.json",
+    "config": "final_train_config.json",
     "source_run": "logs/robomimic/Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-v0/bc_rnn_low_dim_agibot_toy2box/20261028105120",
     "checkpoint_epochs_at_archive_time": [
       100,

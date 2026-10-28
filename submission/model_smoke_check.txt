@@ -1,0 +1,7 @@
+trial 0: success=False
+trial 1: success=False
+trial 2: success=True
+trial 3: success=True
+trial 4: success=True
+trial 5: success=False
+trial 6: success=True

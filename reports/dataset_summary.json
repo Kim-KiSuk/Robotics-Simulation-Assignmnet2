@@ -1,6 +1,8 @@
 [
   {
-    "file": "toy2box_agibot_auto_100.hdf5",
+    "file": "toy2box_auto100.hdf5",
+    "original_file": "toy2box_agibot_auto_100.hdf5",
+    "dataset_id": "AUTO-100",
     "role": "automatic_standard_100",
     "task": "Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-v0",
     "fps": 20.0,
@@ -35,8 +37,10 @@
     "resets_completed": 278
   },
   {
-    "file": "toy2box_agibot_idle21_n20.hdf5",
-    "role": "automatic_varied_idle21_20_latest",
+    "file": "toy2box_pace20.hdf5",
+    "original_file": "toy2box_agibot_idle21_n20.hdf5",
+    "dataset_id": "PACE-20",
+    "role": "automatic_pace20",
     "task": "Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-v0",
     "fps": 20.0,
     "episodes": 20,
@@ -68,7 +72,9 @@
   },
   {
     "file": "toy2box_agibot_auto_n20.hdf5",
-    "role": "automatic_varied_20_before_idle_budget",
+    "original_file": "toy2box_agibot_auto_n20.hdf5",
+    "dataset_id": "VAR-20",
+    "role": "automatic_var20",
     "task": "Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-v0",
     "fps": 20.0,
     "episodes": 20,
@@ -99,6 +105,8 @@
   },
   {
     "file": "toy2box_agibot_annotated_100.hdf5",
+    "original_file": "toy2box_agibot_annotated_100.hdf5",
+    "dataset_id": "mimic_annotation_from_standard_100",
     "role": "mimic_annotation_from_standard_100",
     "task": "Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-Rel-Mimic-v0",
     "fps": 20.0,
@@ -116,7 +124,9 @@
   },
   {
     "file": "toy2box_agibot_n20_annotated.hdf5",
-    "role": "mimic_annotation_from_prior_20",
+    "original_file": "toy2box_agibot_n20_annotated.hdf5",
+    "dataset_id": "mimic_annotation_from_var20",
+    "role": "mimic_annotation_from_var20",
     "task": "Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-Rel-Mimic-v0",
     "fps": 20.0,
     "episodes": 20,
@@ -133,6 +143,8 @@
   },
   {
     "file": "toy2box_agibot_mimic_n100_500.hdf5",
+    "original_file": "toy2box_agibot_mimic_n100_500.hdf5",
+    "dataset_id": "mimic_generated_from_standard_100",
     "role": "mimic_generated_from_standard_100",
     "task": "Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-Rel-Mimic-v0",
     "fps": 20.0,
@@ -150,7 +162,9 @@
   },
   {
     "file": "toy2box_agibot_mimic_n20_500.hdf5",
-    "role": "mimic_generated_from_prior_20",
+    "original_file": "toy2box_agibot_mimic_n20_500.hdf5",
+    "dataset_id": "mimic_generated_from_var20",
+    "role": "mimic_generated_from_var20",
     "task": "Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-Rel-Mimic-v0",
     "fps": 20.0,
     "episodes": 499,

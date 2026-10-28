@@ -1,13 +1,17 @@
 [
   {
     "file": "toy2box_agibot_auto_n20.hdf5",
-    "role": "automatic_varied_20_before_idle_budget",
+    "original_file": "toy2box_agibot_auto_n20.hdf5",
+    "dataset_id": "VAR-20",
+    "role": "automatic_var20",
     "bytes": 6529490,
     "sha256": "ccfde05c772f5e2445a410a19b42163f13553a10d6a49be3953ec9370f0c094e",
     "availability": "local_only_not_published"
   },
   {
     "file": "toy2box_agibot_annotated_100.hdf5",
+    "original_file": "toy2box_agibot_annotated_100.hdf5",
+    "dataset_id": "mimic_annotation_from_standard_100",
     "role": "mimic_annotation_from_standard_100",
     "bytes": 34579618,
     "sha256": "0f6c9729e68e0d005922777ab93609439dd7ad12f06c272e4ede86f80e4ba316",
@@ -15,13 +19,17 @@
   },
   {
     "file": "toy2box_agibot_n20_annotated.hdf5",
-    "role": "mimic_annotation_from_prior_20",
+    "original_file": "toy2box_agibot_n20_annotated.hdf5",
+    "dataset_id": "mimic_annotation_from_var20",
+    "role": "mimic_annotation_from_var20",
     "bytes": 7927958,
     "sha256": "7a9a79365f14882c68cf074f5bbb590b42b86c1868ba8594c472a4b95e88acb1",
     "availability": "local_only_not_published"
   },
   {
     "file": "toy2box_agibot_mimic_n100_500.hdf5",
+    "original_file": "toy2box_agibot_mimic_n100_500.hdf5",
+    "dataset_id": "mimic_generated_from_standard_100",
     "role": "mimic_generated_from_standard_100",
     "bytes": 156448613,
     "sha256": "3dd840db6966d6824934440d7c6b9100f904ef7151661a9230a476aba85600f1",
@@ -29,7 +37,9 @@
   },
   {
     "file": "toy2box_agibot_mimic_n20_500.hdf5",
-    "role": "mimic_generated_from_prior_20",
+    "original_file": "toy2box_agibot_mimic_n20_500.hdf5",
+    "dataset_id": "mimic_generated_from_var20",
+    "role": "mimic_generated_from_var20",
     "bytes": 177493932,
     "sha256": "0fcd528cc24fe1e9786e3994659c97cdf9603a172499f531d1b53eb2a168dd76",
     "availability": "local_only_not_published"
