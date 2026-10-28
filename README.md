@@ -9,7 +9,6 @@
 |---|---|---|
 | 최종 모델 1개 | [models/final_model.pth](models/final_model.pth) | BC-RNN/GMM · epoch 2000 · 학습 seed 101 |
 | 평가 명령어 | [submission/evaluate.txt](submission/evaluate.txt) | 검증 seed 42, rollout 100회, horizon 800 |
-| 5분 발표 PPT | [submission/toy2box_presentation_draft.pptx](submission/toy2box_presentation_draft.pptx) | 7장 초안, 정식 평가·통제 실험 보완 필요 |
 | 제출 파일 확인 | [submission/checklist.md](submission/checklist.md) | 실행 파일·모델·명령어 확인 |
 
 
