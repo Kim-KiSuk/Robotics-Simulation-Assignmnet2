@@ -42,19 +42,19 @@ LD_LIBRARY_PATH=/home/kisuk/miniforge3/envs/lerobot-arena/lib \
 
 ## 학습 코드
 
-선택 모델은 VAR-20에서 만든 성공 생성 시범 499개로 학습했다. 해당 Mimic HDF5는 이 Release의 공개 원본 두 개에 포함되지 않으므로 재학습에는 별도 로컬 파일이 필요하다. 추론 평가에는 HDF5가 필요하지 않다.
+선택 모델은 Dataset B에서 만든 성공 생성 시범 499개로 학습했다. 해당 Mimic HDF5는 이 Release의 공개 원본 두 개에 포함되지 않으므로 재학습에는 별도 로컬 파일이 필요하다. 추론 평가에는 HDF5가 필요하지 않다.
 
 ```bash
 ./isaaclab.sh -p "$REPO/isaaclab_project/scripts/imitation_learning/robomimic/train.py" \
   --task Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-v0 \
   --algo bc \
   --dataset /path/to/toy2box_agibot_mimic_n20_500.hdf5 \
-  --epochs 2000 --name var20_bc_rnn
+  --epochs 2000 --name dataset_b_bc_rnn
 ```
 
 이 학습 스크립트는 task에 등록된 BC config를 읽는다. `--config` 옵션을 받지 않는다. 과거 실행의 전체 설정은 `configs/final_train_config.json`으로 확인한다. seed나 설정을 바꾸는 실험은 해당 task config와 실제 저장된 학습 config를 함께 관리한다.
 
-## AUTO-100 / PACE-20 다운로드와 분석
+## Dataset A / Dataset C 다운로드와 분석
 
 저장소 루트에서 실행한다.
 
@@ -63,14 +63,14 @@ python tools/download_data.py
 python tools/analyze_datasets.py --dataset_dir ./data
 ```
 
-공개 파일명은 `toy2box_auto100.hdf5`, `toy2box_pace20.hdf5`다. 원본 파일명·체크섬 대응은 `data/manifest.json`에 있다. 분석 도구는 두 공개 파일명과 수집 당시 원본 이름 모두 읽을 수 있다. 로컬 annotation·Mimic까지 7개 파일을 갖고 있으면 `--include_related`로 전체 통계와 연결 관계를 확인한다.
+공개 파일명은 `toy2box_dataset_a.hdf5`, `toy2box_dataset_c.hdf5`다. 원본 파일명·체크섬 대응은 `data/manifest.json`에 있다. 분석 도구는 두 공개 파일명과 수집 당시 원본 이름 모두 읽을 수 있다. 로컬 annotation·Mimic까지 7개 파일을 갖고 있으면 `--include_related`로 전체 통계와 연결 관계를 확인한다.
 
 ## 실제 시범 MP4 재생성
 
 ```bash
 cd /home/kisuk/IsaacLab_RS
 ./isaaclab.sh -p "$REPO/tools/replay_dataset_video.py" \
-  --dataset_files "$REPO/data/toy2box_auto100.hdf5" "$REPO/data/toy2box_pace20.hdf5" \
+  --dataset_files "$REPO/data/toy2box_dataset_a.hdf5" "$REPO/data/toy2box_dataset_c.hdf5" \
   --output_dir /tmp/toy2box_replay_named \
   --samples_per_dataset 3 --headless
 ```
@@ -79,7 +79,7 @@ cd /home/kisuk/IsaacLab_RS
 
 ## 수집 코드와 직접 조작 모드
 
-`tools/collection/record_toy2box_auto.py`는 자동 수집과 수동 가이드를 지원한다. PACE-20 설정은 `--motion_style varied --motion_variation_strength 1.0 --target_idle_fraction 0.21`이다. 사람이 직접 움직이는 모드는 `--full_sequence --sequence_order rotation_xy_z`로 실행하며 자동 동작 옵션을 함께 지정하지 않는다. 새 수집에는 새 파일명을 사용한다.
+`tools/collection/record_toy2box_auto.py`는 자동 수집과 수동 가이드를 지원한다. Dataset C 설정은 `--motion_style varied --motion_variation_strength 1.0 --target_idle_fraction 0.21`이다. 사람이 직접 움직이는 모드는 `--full_sequence --sequence_order rotation_xy_z`로 실행하며 자동 동작 옵션을 함께 지정하지 않는다. 새 수집에는 새 파일명을 사용한다.
 
 ## 검증
 

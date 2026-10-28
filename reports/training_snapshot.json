@@ -1,6 +1,6 @@
 [
   {
-    "config": "auto100_reference_train_config.json",
+    "config": "dataset_a_reference_train_config.json",
     "source_run": "logs/robomimic/Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-auto/bc_rnn_low_dim_agibot_toy2box/20261027100809",
     "checkpoint_epochs_at_archive_time": [
       100,

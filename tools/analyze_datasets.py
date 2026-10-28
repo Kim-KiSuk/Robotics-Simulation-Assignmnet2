@@ -11,19 +11,19 @@ import h5py
 import numpy as np
 
 FILES = {
-    "toy2box_agibot_auto_100.hdf5": "automatic_standard_100",
-    "toy2box_agibot_idle21_n20.hdf5": "automatic_pace20",
-    "toy2box_agibot_auto_n20.hdf5": "automatic_var20",
-    "toy2box_agibot_annotated_100.hdf5": "mimic_annotation_from_standard_100",
-    "toy2box_agibot_n20_annotated.hdf5": "mimic_annotation_from_var20",
-    "toy2box_agibot_mimic_n100_500.hdf5": "mimic_generated_from_standard_100",
-    "toy2box_agibot_mimic_n20_500.hdf5": "mimic_generated_from_var20",
+    "toy2box_agibot_auto_100.hdf5": "automatic_collection_a",
+    "toy2box_agibot_idle21_n20.hdf5": "automatic_collection_c",
+    "toy2box_agibot_auto_n20.hdf5": "automatic_collection_b",
+    "toy2box_agibot_annotated_100.hdf5": "mimic_annotation_from_dataset_a",
+    "toy2box_agibot_n20_annotated.hdf5": "mimic_annotation_from_dataset_b",
+    "toy2box_agibot_mimic_n100_500.hdf5": "mimic_generated_from_dataset_a",
+    "toy2box_agibot_mimic_n20_500.hdf5": "mimic_generated_from_dataset_b",
 }
 RELEASE = "https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2/releases/download/collection-2026-10-28"
 PRIMARY_FILES = {"toy2box_agibot_auto_100.hdf5", "toy2box_agibot_idle21_n20.hdf5"}
 PUBLIC_NAMES = {
-    "toy2box_agibot_auto_100.hdf5": ("AUTO-100", "toy2box_auto100.hdf5"),
-    "toy2box_agibot_idle21_n20.hdf5": ("PACE-20", "toy2box_pace20.hdf5"),
+    "toy2box_agibot_auto_100.hdf5": ("Dataset A", "toy2box_dataset_a.hdf5"),
+    "toy2box_agibot_idle21_n20.hdf5": ("Dataset C", "toy2box_dataset_c.hdf5"),
 }
 
 
@@ -41,7 +41,7 @@ def analyze(source, output, include_related=False):
     for filename, role in FILES.items():
         if filename not in PRIMARY_FILES and not include_related:
             continue
-        dataset_id, public_name = PUBLIC_NAMES.get(filename, ("VAR-20" if filename == "toy2box_agibot_auto_n20.hdf5" else role, filename))
+        dataset_id, public_name = PUBLIC_NAMES.get(filename, ("Dataset B" if filename == "toy2box_agibot_auto_n20.hdf5" else role, filename))
         path = source / public_name
         if not path.exists():
             path = source / filename
@@ -93,7 +93,7 @@ def analyze(source, output, include_related=False):
             "gripper_switches_max": max(row["gripper_switches"] for row in rows),
         }
         logs = [source / Path(filename).with_suffix(".run.json"), path.with_suffix(".run.json"),
-                output / "collection" / (dataset_id.replace("-", "").lower() + ".run.json"),
+                output / "collection" / (dataset_id.removeprefix("Dataset ").lower() + ".run.json"),
                 output / Path(filename).with_suffix(".run.json")]
         log = next((candidate for candidate in logs if candidate.exists()), None)
         if log is not None:

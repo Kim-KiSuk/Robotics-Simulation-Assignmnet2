@@ -13,7 +13,7 @@
 | 모델 평가 명령어 | `submission/evaluate.txt` |
 | 5분 발표용 PPT | `submission/toy2box_presentation_draft.pptx`; 초안 |
 
-모델은 사용자 지정 VAR-20/Mimic499 epoch 2000 한 개다. 다른 epoch나 AUTO-100 가중치는 업로드하지 않는다. Isaac Sim과 로봇·물체 USD는 외부 설치 자산이며 저장소에 포함하지 않는다.
+모델은 사용자 지정 Dataset B/Mimic499 epoch 2000 한 개다. 다른 epoch나 Dataset A 가중치는 업로드하지 않는다. Isaac Sim과 로봇·물체 USD는 외부 설치 자산이며 저장소에 포함하지 않는다.
 
 ## 연구 흐름 — 49·52페이지
 
@@ -34,7 +34,7 @@
 - rollout 100회, horizon 800. 학습 seed별 성공률의 평균·표준편차 보고.
 - 비교 조건 간 epoch, batch, 체크포인트 선택 규칙을 맞추고 학습량 보고.
 
-데이터 실험 이름은 AUTO-100·VAR-20·PACE-20이며 수집 방식은 별도 통계에 기록한다. 자동 데이터는 직접 수집 사람 시범으로 계산하지 않는다.
+데이터 실험 이름은 Dataset A·Dataset B·Dataset C이며 수집 방식은 별도 통계에 기록한다. 자동 데이터는 직접 수집 사람 시범으로 계산하지 않는다.
 
 ## 평가 항목 — 53페이지
 

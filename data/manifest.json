@@ -1,20 +1,20 @@
 [
   {
-    "file": "toy2box_auto100.hdf5",
+    "file": "toy2box_dataset_a.hdf5",
     "original_file": "toy2box_agibot_auto_100.hdf5",
-    "dataset_id": "AUTO-100",
-    "role": "automatic_standard_100",
+    "dataset_id": "Dataset A",
+    "role": "automatic_collection_a",
     "bytes": 28845059,
     "sha256": "676032701b5774fa76f3228d6ac2bcc18a19111e9dd3f8d920a2a82377402cd1",
-    "download_url": "https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2/releases/download/collection-2026-10-28/toy2box_auto100.hdf5"
+    "download_url": "https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2/releases/download/collection-2026-10-28/toy2box_dataset_a.hdf5"
   },
   {
-    "file": "toy2box_pace20.hdf5",
+    "file": "toy2box_dataset_c.hdf5",
     "original_file": "toy2box_agibot_idle21_n20.hdf5",
-    "dataset_id": "PACE-20",
-    "role": "automatic_pace20",
+    "dataset_id": "Dataset C",
+    "role": "automatic_collection_c",
     "bytes": 7325010,
     "sha256": "01ca8e6bc4aad790fe7c4e7b3a9ac650a82163b25716de7b6124015241bcd754",
-    "download_url": "https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2/releases/download/collection-2026-10-28/toy2box_pace20.hdf5"
+    "download_url": "https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2/releases/download/collection-2026-10-28/toy2box_dataset_c.hdf5"
   }
 ]

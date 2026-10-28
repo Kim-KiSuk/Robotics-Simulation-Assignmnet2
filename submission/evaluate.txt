@@ -1,6 +1,6 @@
 Agibot Toy2Box — 선택 모델 평가 명령어
 
-모델: VAR-20 → Mimic 성공 생성 499개 → BC-RNN/GMM, 학습 seed 101, epoch 2000
+모델: Dataset B → Mimic 성공 생성 499개 → BC-RNN/GMM, 학습 seed 101, epoch 2000
 가중치: models/final_model.pth
 검증 조건: seed 42, rollout 100회, horizon 800
 

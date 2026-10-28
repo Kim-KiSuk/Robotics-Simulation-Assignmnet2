@@ -4,9 +4,9 @@
 
 | 이름 | 공개 파일명 / 로컬 원본 | 의미 |
 |---|---|---|
-| AUTO-100 | `toy2box_auto100.hdf5` | 표준 자동 피드백 수집 100개 |
-| VAR-20 | `toy2box_agibot_auto_n20.hdf5` | 속도 변화·짧은 멈춤 자동 수집 20개 |
-| PACE-20 | `toy2box_pace20.hdf5` | idle 목표 21% 자동 수집 20개 |
+| Dataset A | `toy2box_dataset_a.hdf5` | 표준 자동 피드백 수집 100개 |
+| Dataset B | `toy2box_agibot_auto_n20.hdf5` | 속도 변화·짧은 멈춤 자동 수집 20개 |
+| Dataset C | `toy2box_dataset_c.hdf5` | idle 목표 21% 자동 수집 20개 |
 
 공개 파일명은 실험 이름에 맞게 정리했다. HDF5 내부 배열과 원본 바이트는 변경하지 않았다. 원본 파일명과 SHA256은 `data/manifest.json`에 기록했다. 수집 당시 실행 JSON의 경로는 역사적 원본 기록으로 보존한다.
 
@@ -18,7 +18,7 @@ Agibot 오른팔로 트럭을 집어 박스 안에 놓는다. 상대 이동 3축
 
 ## 수집 통계
 
-| 항목 | AUTO-100 | VAR-20 | PACE-20 |
+| 항목 | Dataset A | Dataset B | Dataset C |
 |---|---:|---:|---:|
 | 성공 저장 / 시도 | 100 / 278 | 20 / 120 | 20 / 120 |
 | 수집 시도 성공률 | 35.97% | 16.67% | 16.67% |
@@ -32,7 +32,7 @@ Agibot 오른팔로 트럭을 집어 박스 안에 놓는다. 상대 이동 3축
 
 `idle = mean(all(actions[:, :6] == 0, axis=1))`이다. 매우 작은 비0 명령은 idle이 아니다. 그리퍼 전환 횟수만으로 파지·배치 성공을 판단하지 않는다. 이 표는 수집 통계이며 BC 성능의 통제 실험 결과가 아니다.
 
-## PACE-20 동작 구성
+## Dataset C 동작 구성
 
 - 기존 명령 크기의 약 45~100% 범위에서 부드럽게 속도 변화.
 - 접근·운반 중 최대 8 mm 중간 위치 보정. 목표와의 마지막 4 cm에서는 추가 보정 제거.
@@ -43,7 +43,7 @@ Agibot 오른팔로 트럭을 집어 박스 안에 놓는다. 상대 이동 3축
 
 ## 수집기 중단 이유
 
-| 기록된 이유 | AUTO-100 | PACE-20 |
+| 기록된 이유 | Dataset A | Dataset C |
 |---|---:|---:|
 | approach 정체 | 119 | 91 |
 | descend 정체 | 37 | 6 |
@@ -60,21 +60,21 @@ Agibot 오른팔로 트럭을 집어 박스 안에 놓는다. 상대 이동 3축
 
 | 계열 | 원본 수 | annotation 실제 수 | Mimic 성공 데이터 수 | 연결 |
 |---|---:|---:|---:|---|
-| AUTO-100 | 100 | 99 | 500 | 참고 학습 |
-| VAR-20 | 20 | 20 | 499 | 최종 모델 학습 |
-| PACE-20 | 20 | 미포함 | 미포함 | 수집 데이터 비교 |
+| Dataset A | 100 | 99 | 500 | 참고 학습 |
+| Dataset B | 20 | 20 | 499 | 최종 모델 학습 |
+| Dataset C | 20 | 미포함 | 미포함 | 수집 데이터 비교 |
 
 파일명 `annotated_100`에는 99개가 있다. action·손끝 위치의 내용 해시 비교에서 원본 `demo_39`는 포함되지 않았다. 제외 원인은 확인되지 않았다.
 
-VAR-20 annotation은 VAR-20의 20개와 모두 일치하며 PACE-20과는 일치하지 않는다. 파일명 `mimic_n20_500`의 실제 성공 episode는 499개다. 생성 시도 수나 생성 성공률을 파일명만으로 계산하지 않는다.
+Dataset B annotation은 Dataset B의 20개와 모두 일치하며 Dataset C과는 일치하지 않는다. 파일명 `mimic_n20_500`의 실제 성공 episode는 499개다. 생성 시도 수나 생성 성공률을 파일명만으로 계산하지 않는다.
 
-공개 HDF5는 AUTO-100과 PACE-20 두 개다. VAR-20·annotation·Mimic의 HDF5 원본은 공개하지 않고 통계·연결 관계만 보관한다. 실패 생성 파일은 학습용에 포함하지 않았다.
+공개 HDF5는 Dataset A과 Dataset C 두 개다. Dataset B·annotation·Mimic의 HDF5 원본은 공개하지 않고 통계·연결 관계만 보관한다. 실패 생성 파일은 학습용에 포함하지 않았다.
 
 ## 근거 파일
 
 - [전체 요약](../reports/dataset_summary.json) · [내용 해시 연결](../reports/dataset_lineage.json)
-- [AUTO-100 CSV](../reports/toy2box_auto100.episodes.csv) · [PACE-20 CSV](../reports/toy2box_pace20.episodes.csv)
-- [AUTO-100 실행 기록](../reports/collection/auto100.run.json)
-- [VAR-20 실행 기록](../reports/collection/var20.run.json)
-- [PACE-20 실행 기록](../reports/collection/pace20.run.json)
+- [Dataset A CSV](../reports/toy2box_dataset_a.episodes.csv) · [Dataset C CSV](../reports/toy2box_dataset_c.episodes.csv)
+- [Dataset A 실행 기록](../reports/collection/a.run.json)
+- [Dataset B 실행 기록](../reports/collection/b.run.json)
+- [Dataset C 실행 기록](../reports/collection/c.run.json)
 - [공개 원본 manifest](../data/manifest.json) · [관련 로컬 파일 manifest](../reports/related_local_datasets.json)
