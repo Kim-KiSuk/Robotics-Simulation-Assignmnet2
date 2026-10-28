@@ -2,7 +2,6 @@
 
 **연구 질문:** 사람 시범으로 학습한 BC 정책은 Toy2Box에서 왜 성공률이 저조한가? 원인 하나를 진단하고 그 원인을 겨냥해 성공률을 높인다.
 
-`Robotics_Simulation_Week08.pdf` 47~54페이지를 기준으로 정리한 과제 프로젝트다. 환경·학습 코드, 선택한 모델 가중치 1개, 평가 명령어, 데이터 통계와 재생 영상을 제공한다.
 
 ## 제출 파일
 
@@ -13,7 +12,6 @@
 | 5분 발표 PPT | [submission/toy2box_presentation_draft.pptx](submission/toy2box_presentation_draft.pptx) | 7장 초안, 정식 평가·통제 실험 보완 필요 |
 | 제출 기준과 확인 항목 | [submission/requirements.md](submission/requirements.md) | PDF 47~54페이지 대응 |
 
-최종 모델은 사용자가 선택한 고정 epoch 2000 체크포인트다. 여러 모델 중 최고 성능을 검증해 선정했다는 의미는 아니다. [모델 해시·학습 이력](models/model_manifest.json)을 함께 제공한다.
 
 ## 데이터 세트
 
