@@ -12,7 +12,7 @@ import numpy as np
 
 FILES = {
     "toy2box_agibot_auto_100.hdf5": "automatic_collection_a",
-    "toy2box_agibot_idle21_n20.hdf5": "automatic_collection_c",
+    "toy2box_agibot_idle21_n20.hdf5": "automatic_collection_b",
     "toy2box_agibot_auto_n20.hdf5": "automatic_training_reference",
     "toy2box_agibot_annotated_100.hdf5": "mimic_annotation_from_dataset_a",
     "toy2box_agibot_n20_annotated.hdf5": "mimic_annotation_from_training_reference",
@@ -23,7 +23,7 @@ RELEASE = "https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2/releases
 PRIMARY_FILES = {"toy2box_agibot_auto_100.hdf5", "toy2box_agibot_idle21_n20.hdf5"}
 PUBLIC_NAMES = {
     "toy2box_agibot_auto_100.hdf5": ("Dataset A", "toy2box_dataset_a.hdf5"),
-    "toy2box_agibot_idle21_n20.hdf5": ("Dataset C", "toy2box_dataset_c.hdf5"),
+    "toy2box_agibot_idle21_n20.hdf5": ("Dataset B", "toy2box_dataset_b.hdf5"),
 }
 
 

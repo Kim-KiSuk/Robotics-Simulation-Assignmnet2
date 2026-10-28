@@ -54,7 +54,7 @@ LD_LIBRARY_PATH=/home/kisuk/miniforge3/envs/lerobot-arena/lib \
 
 이 학습 스크립트는 task에 등록된 BC config를 읽는다. `--config` 옵션을 받지 않는다. 과거 실행의 전체 설정은 `configs/final_train_config.json`으로 확인한다. seed나 설정을 바꾸는 실험은 해당 task config와 실제 저장된 학습 config를 함께 관리한다.
 
-## Dataset A / Dataset C 다운로드와 분석
+## Dataset A / Dataset B 다운로드와 분석
 
 저장소 루트에서 실행한다.
 
@@ -63,14 +63,14 @@ python tools/download_data.py
 python tools/analyze_datasets.py --dataset_dir ./data
 ```
 
-공개 파일명은 `toy2box_dataset_a.hdf5`, `toy2box_dataset_c.hdf5`다. 원본 파일명·체크섬 대응은 `data/manifest.json`에 있다. 분석 도구는 두 공개 파일명과 수집 당시 원본 이름 모두 읽을 수 있다. 로컬 annotation·Mimic까지 7개 파일을 갖고 있으면 `--include_related`로 전체 통계와 연결 관계를 확인한다.
+공개 파일명은 `toy2box_dataset_a.hdf5`, `toy2box_dataset_b.hdf5`다. 원본 파일명·체크섬 대응은 `data/manifest.json`에 있다. 분석 도구는 두 공개 파일명과 수집 당시 원본 이름 모두 읽을 수 있다. 로컬 annotation·Mimic까지 7개 파일을 갖고 있으면 `--include_related`로 전체 통계와 연결 관계를 확인한다.
 
 ## 실제 시범 MP4 재생성
 
 ```bash
 cd /home/kisuk/IsaacLab_RS
 ./isaaclab.sh -p "$REPO/tools/replay_dataset_video.py" \
-  --dataset_files "$REPO/data/toy2box_dataset_a.hdf5" "$REPO/data/toy2box_dataset_c.hdf5" \
+  --dataset_files "$REPO/data/toy2box_dataset_a.hdf5" "$REPO/data/toy2box_dataset_b.hdf5" \
   --output_dir /tmp/toy2box_replay_named \
   --samples_per_dataset 3 --headless
 ```
@@ -79,7 +79,7 @@ cd /home/kisuk/IsaacLab_RS
 
 ## 수집 코드와 직접 조작 모드
 
-`tools/collection/record_toy2box_auto.py`는 자동 수집과 수동 가이드를 지원한다. Dataset C 설정은 `--motion_style varied --motion_variation_strength 1.0 --target_idle_fraction 0.21`이다. 사람이 직접 움직이는 모드는 `--full_sequence --sequence_order rotation_xy_z`로 실행하며 자동 동작 옵션을 함께 지정하지 않는다. 새 수집에는 새 파일명을 사용한다.
+`tools/collection/record_toy2box_auto.py`는 자동 수집과 수동 가이드를 지원한다. Dataset B 설정은 `--motion_style varied --motion_variation_strength 1.0 --target_idle_fraction 0.21`이다. 사람이 직접 움직이는 모드는 `--full_sequence --sequence_order rotation_xy_z`로 실행하며 자동 동작 옵션을 함께 지정하지 않는다. 새 수집에는 새 파일명을 사용한다.
 
 ## 검증
 

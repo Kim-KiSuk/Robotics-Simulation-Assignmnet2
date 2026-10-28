@@ -5,7 +5,7 @@
 | 실험 | 파일 |
 |---|---|
 | Dataset A | `toy2box_dataset_a.hdf5` |
-| Dataset C | `toy2box_dataset_c.hdf5` |
+| Dataset B | `toy2box_dataset_b.hdf5` |
 
 ```bash
 python tools/download_data.py

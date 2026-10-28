@@ -16,7 +16,7 @@
     "fingerprint": "SHA256(float32 actions + float32 eef_pos)"
   },
   {
-    "raw": "toy2box_dataset_c.hdf5",
+    "raw": "toy2box_dataset_b.hdf5",
     "annotated": "toy2box_agibot_n20_annotated.hdf5",
     "matched_episodes": 0,
     "unmatched_raw_episodes": [

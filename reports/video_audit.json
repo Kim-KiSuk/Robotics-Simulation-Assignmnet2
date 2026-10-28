@@ -36,7 +36,7 @@
     "nonblack_and_motion_verified": true
   },
   {
-    "video": "dataset_c/demo_0.mp4",
+    "video": "dataset_b/demo_0.mp4",
     "decoded_frames": 439,
     "fps": 20.0,
     "sample_frame_mean_intensities": [
@@ -48,7 +48,7 @@
     "nonblack_and_motion_verified": true
   },
   {
-    "video": "dataset_c/demo_9.mp4",
+    "video": "dataset_b/demo_9.mp4",
     "decoded_frames": 424,
     "fps": 20.0,
     "sample_frame_mean_intensities": [
@@ -60,7 +60,7 @@
     "nonblack_and_motion_verified": true
   },
   {
-    "video": "dataset_c/demo_19.mp4",
+    "video": "dataset_b/demo_19.mp4",
     "decoded_frames": 384,
     "fps": 20.0,
     "sample_frame_mean_intensities": [

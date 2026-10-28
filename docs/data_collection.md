@@ -5,7 +5,7 @@
 | 이름 | 파일 | 시범 수 | 구성 |
 |---|---|---:|---|
 | Dataset A | `toy2box_dataset_a.hdf5` | 100 | 기준 동작 |
-| Dataset C | `toy2box_dataset_c.hdf5` | 20 | 속도 변화·분산 멈춤 |
+| Dataset B | `toy2box_dataset_b.hdf5` | 20 | 속도 변화·분산 멈춤 |
 
 공개 파일명과 수집 당시 파일명, 바이트 크기, SHA256은 [manifest](../data/manifest.json)에 기록했다. 이름만 바꾸었으며 HDF5 내부 데이터는 변경하지 않았다.
 
@@ -17,7 +17,7 @@ Agibot 오른팔로 트럭을 집어 박스 안에 놓는다. 상대 이동 3축
 
 ## 통계
 
-| 항목 | Dataset A | Dataset C |
+| 항목 | Dataset A | Dataset B |
 |---|---:|---:|
 | 성공 저장 / 시도 | 100 / 278 | 20 / 120 |
 | 수집 시도 성공률 | 35.97% | 16.67% |
@@ -30,7 +30,7 @@ Agibot 오른팔로 트럭을 집어 박스 안에 놓는다. 상대 이동 3축
 
 `idle = mean(all(actions[:, :6] == 0, axis=1))`이며 그리퍼 값은 제외한다. 작은 비0 명령은 idle에 포함되지 않는다. 수집 성공률과 BC 정책 평가 성공률은 다르다.
 
-## Dataset C 동작 구성
+## Dataset B 동작 구성
 
 - 기존 명령 크기의 약 45~100% 범위에서 속도 변화.
 - 접근·운반 중 최대 8 mm 위치 보정, 목표까지 마지막 4 cm에서는 추가 보정 제거.
@@ -40,7 +40,7 @@ Agibot 오른팔로 트럭을 집어 박스 안에 놓는다. 상대 이동 3축
 
 ## 수집 중단 이유
 
-| 이유 | Dataset A | Dataset C |
+| 이유 | Dataset A | Dataset B |
 |---|---:|---:|
 | approach 정체 | 119 | 91 |
 | descend 정체 | 37 | 6 |
@@ -62,6 +62,6 @@ Agibot 오른팔로 트럭을 집어 박스 안에 놓는다. 상대 이동 3축
 ## 근거
 
 - [전체 요약](../reports/dataset_summary.json) · [내용 해시 연결](../reports/dataset_lineage.json)
-- [Dataset A CSV](../reports/toy2box_dataset_a.episodes.csv) · [Dataset C CSV](../reports/toy2box_dataset_c.episodes.csv)
-- [Dataset A 실행 기록](../reports/collection/a.run.json) · [Dataset C 실행 기록](../reports/collection/c.run.json)
+- [Dataset A CSV](../reports/toy2box_dataset_a.episodes.csv) · [Dataset B CSV](../reports/toy2box_dataset_b.episodes.csv)
+- [Dataset A 실행 기록](../reports/collection/a.run.json) · [Dataset B 실행 기록](../reports/collection/b.run.json)
 - [공개 원본 manifest](../data/manifest.json) · [관련 로컬 파일 manifest](../reports/related_local_datasets.json)

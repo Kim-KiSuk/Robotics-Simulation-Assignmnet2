@@ -39,9 +39,9 @@
     "dataset_id": "Dataset A"
   },
   {
-    "dataset": "toy2box_dataset_c.hdf5",
+    "dataset": "toy2box_dataset_b.hdf5",
     "episode": "demo_0",
-    "video": "dataset_c/demo_0.mp4",
+    "video": "dataset_b/demo_0.mp4",
     "frames": 439,
     "fps": 20.0,
     "replay_task_success_10_steps": true,
@@ -49,12 +49,12 @@
     "replay_final_task_success": true,
     "method": "initial_state_restore_then_recorded_action_replay",
     "original_source_dataset": "toy2box_agibot_idle21_n20.hdf5",
-    "dataset_id": "Dataset C"
+    "dataset_id": "Dataset B"
   },
   {
-    "dataset": "toy2box_dataset_c.hdf5",
+    "dataset": "toy2box_dataset_b.hdf5",
     "episode": "demo_9",
-    "video": "dataset_c/demo_9.mp4",
+    "video": "dataset_b/demo_9.mp4",
     "frames": 424,
     "fps": 20.0,
     "replay_task_success_10_steps": true,
@@ -62,12 +62,12 @@
     "replay_final_task_success": true,
     "method": "initial_state_restore_then_recorded_action_replay",
     "original_source_dataset": "toy2box_agibot_idle21_n20.hdf5",
-    "dataset_id": "Dataset C"
+    "dataset_id": "Dataset B"
   },
   {
-    "dataset": "toy2box_dataset_c.hdf5",
+    "dataset": "toy2box_dataset_b.hdf5",
     "episode": "demo_19",
-    "video": "dataset_c/demo_19.mp4",
+    "video": "dataset_b/demo_19.mp4",
     "frames": 384,
     "fps": 20.0,
     "replay_task_success_10_steps": true,
@@ -75,6 +75,6 @@
     "replay_final_task_success": true,
     "method": "initial_state_restore_then_recorded_action_replay",
     "original_source_dataset": "toy2box_agibot_idle21_n20.hdf5",
-    "dataset_id": "Dataset C"
+    "dataset_id": "Dataset B"
   }
 ]

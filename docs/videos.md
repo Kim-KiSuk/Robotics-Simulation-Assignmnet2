@@ -1,6 +1,6 @@
 # 재생 영상
 
-## Dataset A / Dataset C 시범 재생
+## Dataset A / Dataset B 시범 재생
 
 원본의 초기 상태를 복원하고 저장 action을 실제 Isaac Sim에서 실행했다. NVIDIA RTX 5080, 960×540, H.264 MP4, 20 fps로 렌더링했다.
 
@@ -9,9 +9,9 @@
 | Dataset A | demo_0 | 240 | 12.00초 | [재생](../videos/dataset_a/demo_0.mp4) |
 | Dataset A | demo_49 | 249 | 12.45초 | [재생](../videos/dataset_a/demo_49.mp4) |
 | Dataset A | demo_99 | 261 | 13.05초 | [재생](../videos/dataset_a/demo_99.mp4) |
-| Dataset C | demo_0 | 439 | 21.95초 | [재생](../videos/dataset_c/demo_0.mp4) |
-| Dataset C | demo_9 | 424 | 21.20초 | [재생](../videos/dataset_c/demo_9.mp4) |
-| Dataset C | demo_19 | 384 | 19.20초 | [재생](../videos/dataset_c/demo_19.mp4) |
+| Dataset B | demo_0 | 439 | 21.95초 | [재생](../videos/dataset_b/demo_0.mp4) |
+| Dataset B | demo_9 | 424 | 21.20초 | [재생](../videos/dataset_b/demo_9.mp4) |
+| Dataset B | demo_19 | 384 | 19.20초 | [재생](../videos/dataset_b/demo_19.mp4) |
 
 ![처음·중간·마지막 프레임](../videos/previews/contact_sheet.jpg)
 

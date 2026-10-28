@@ -9,12 +9,12 @@
     "download_url": "https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2/releases/download/collection-2026-10-28/toy2box_dataset_a.hdf5"
   },
   {
-    "file": "toy2box_dataset_c.hdf5",
+    "file": "toy2box_dataset_b.hdf5",
     "original_file": "toy2box_agibot_idle21_n20.hdf5",
-    "dataset_id": "Dataset C",
-    "role": "automatic_collection_c",
+    "dataset_id": "Dataset B",
+    "role": "automatic_collection_b",
     "bytes": 7325010,
     "sha256": "01ca8e6bc4aad790fe7c4e7b3a9ac650a82163b25716de7b6124015241bcd754",
-    "download_url": "https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2/releases/download/collection-2026-10-28/toy2box_dataset_c.hdf5"
+    "download_url": "https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2/releases/download/collection-2026-10-28/toy2box_dataset_b.hdf5"
   }
 ]

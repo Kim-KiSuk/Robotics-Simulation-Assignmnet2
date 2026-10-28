@@ -18,22 +18,22 @@
 | 실험 이름 | 구성 | 시범 수 | 평균 길이 | idle 평균 | 용도 |
 |---|---|---:|---:|---:|---|
 | **Dataset A** | 기준 동작 구성 | 100 | 14.61초 | 0.70% | 수집·증강 참고 기준 |
-| **Dataset C** | idle 목표 21%·분산 멈춤 구성 | 20 | 21.02초 | 19.79% | 동작 시간 구성 비교용 |
+| **Dataset B** | idle 목표 21%·분산 멈춤 구성 | 20 | 21.02초 | 19.79% | 동작 시간 구성 비교용 |
 
-A/C는 데이터 세트 식별자이며 시범 개수나 소요 시간을 뜻하지 않는다. 수집 방식과 실행 이력은 [수집 기록](docs/data_collection.md)에 정리했다. idle은 팔의 이동·회전 명령 6개가 모두 정확히 0인 프레임의 비율이며, 그리퍼 값은 제외한다. 수집 통계는 BC 정책 평가 성공률과 구분한다.
+A/B는 데이터 세트 식별자이며 시범 개수나 소요 시간을 뜻하지 않는다. 수집 방식과 실행 이력은 [수집 기록](docs/data_collection.md)에 정리했다. idle은 팔의 이동·회전 명령 6개가 모두 정확히 0인 프레임의 비율이며, 그리퍼 값은 제외한다. 수집 통계는 BC 정책 평가 성공률과 구분한다.
 
-- 공개 데이터: [Dataset A / Dataset C HDF5](https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2/releases/tag/collection-2026-10-28)
+- 공개 데이터: [Dataset A / Dataset B HDF5](https://github.com/Kim-KiSuk/Robotics-Simulation-Assignmnet2/releases/tag/collection-2026-10-28)
 - [수집 방법·전체 통계](docs/data_collection.md) · [파일명 대응·SHA256](data/manifest.json)
 - [최종 모델의 학습 이력](docs/training_status.md) · [학습 config](configs/final_train_config.json)
 
 ## 영상
 
-[![Dataset A과 Dataset C의 시범 재생](videos/previews/contact_sheet.jpg)](docs/videos.md)
+[![Dataset A과 Dataset B의 시범 재생](videos/previews/contact_sheet.jpg)](docs/videos.md)
 
 | 데이터 | 실제 시범 재생 영상 |
 |---|---|
 | Dataset A | [demo_0](videos/dataset_a/demo_0.mp4) · [demo_49](videos/dataset_a/demo_49.mp4) · [demo_99](videos/dataset_a/demo_99.mp4) |
-| Dataset C | [demo_0](videos/dataset_c/demo_0.mp4) · [demo_9](videos/dataset_c/demo_9.mp4) · [demo_19](videos/dataset_c/demo_19.mp4) |
+| Dataset B | [demo_0](videos/dataset_b/demo_0.mp4) · [demo_9](videos/dataset_b/demo_9.mp4) · [demo_19](videos/dataset_b/demo_19.mp4) |
 
 위 6개는 HDF5 초기 상태와 저장 action을 실제 시뮬레이터에서 재생한 영상이다. 선택한 6개 모두 기존 성공 조건을 10 step 연속 충족했다. 학습된 정책의 독립 평가 영상과는 구분한다. [영상 설명·검사 결과](docs/videos.md)를 참고한다.
 
@@ -63,7 +63,7 @@ models/                최종 가중치 1개와 SHA256 manifest
 submission/            평가 명령어, 제출 기준, 발표 PPT 초안
 configs/               선택 모델과 참고 학습 설정
 reports/               episode CSV, 수집 로그, 데이터 연결·영상 검사
-videos/                Dataset A·Dataset C 재생 영상, 정책 참고 영상
+videos/                Dataset A·Dataset B 재생 영상, 정책 참고 영상
 tools/                 다운로드·분석·재생·설치 도구
 ```
 

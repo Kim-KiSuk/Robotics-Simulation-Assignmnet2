@@ -37,10 +37,10 @@
     "resets_completed": 278
   },
   {
-    "file": "toy2box_dataset_c.hdf5",
+    "file": "toy2box_dataset_b.hdf5",
     "original_file": "toy2box_agibot_idle21_n20.hdf5",
-    "dataset_id": "Dataset C",
-    "role": "automatic_collection_c",
+    "dataset_id": "Dataset B",
+    "role": "automatic_collection_b",
     "task": "Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-v0",
     "fps": 20.0,
     "episodes": 20,
